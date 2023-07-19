@@ -15,6 +15,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 @Table(name = "tb_expenditure")
@@ -24,25 +25,31 @@ public class Expenditure {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
+    @NotNull
 	private String description;
 
+    @NotNull
 	@Column(name = "due_date")
 	private LocalDate dueDate;
 
 	@Column(name = "payment_date")
 	private LocalDate paymentDate;
 
+    @NotNull
 	private BigDecimal value;
 
 	private String observation;
 
+    @NotNull
 	@Enumerated(EnumType.STRING)
 	private ExpenditureType type;
 
+    @NotNull
 	@ManyToOne
 	@JoinColumn(name = "category_id")
 	private Category category;
 
+    @NotNull
 	@ManyToOne
 	@JoinColumn(name = "person_id")
 	private Person person;
