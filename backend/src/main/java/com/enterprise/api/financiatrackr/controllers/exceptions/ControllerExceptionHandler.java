@@ -31,7 +31,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
             HttpHeaders headers, HttpStatusCode status, WebRequest request) {
 
         String userMessage = "Invalid JSON Object";
-        String developerMessage = ex.getCause().toString();
+        String developerMessage = (ex.getCause() != null) ? ex.getCause().toString() : ex.toString();
 
         Error error = new Error(userMessage, developerMessage);
         
@@ -58,7 +58,7 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
         return errors;
     }
 
-    @ExceptionHandler(EmptyResultDataAccessException.class)
+    @ExceptionHandler({ EmptyResultDataAccessException.class })
     public ResponseEntity<Object> handleEmptyResultDataAccessException(EmptyResultDataAccessException ex, WebRequest request) {
         String userMessage = "Resource not found";
 		String developersMessage = ex.toString();
