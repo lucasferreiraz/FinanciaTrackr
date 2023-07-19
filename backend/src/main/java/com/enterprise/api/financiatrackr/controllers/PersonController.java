@@ -2,6 +2,7 @@ package com.enterprise.api.financiatrackr.controllers;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,39 +14,39 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import com.enterprise.api.financiatrackr.entities.Category;
-import com.enterprise.api.financiatrackr.repositories.CategoryRepository;
+import com.enterprise.api.financiatrackr.entities.Person;
+import com.enterprise.api.financiatrackr.repositories.PersonRepository;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/categories")
-public class CategoryController {
+@RequestMapping("/persons")
+public class PersonController {
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private PersonRepository personRepository;
 
     @GetMapping
-    public List<Category> getAll() {
-        return categoryRepository.findAll();
+    public List<Person> getAll() {
+        return personRepository.findAll();
     }
 
     @PostMapping
-    public ResponseEntity<Category> create(@Valid @RequestBody Category category, HttpServletResponse response) {
-        Category savedCategory = categoryRepository.save(category);
+    public ResponseEntity<Person> create(@Valid @RequestBody Person person, HttpServletResponse response) {
+        Person savedPerson = personRepository.save(person);
 
         URI uri = ServletUriComponentsBuilder.fromCurrentRequestUri()
                 .path("/{id}")
-                .buildAndExpand(savedCategory.getId()).toUri();
+                .buildAndExpand(savedPerson.getId()).toUri();
         response.setHeader("Location", uri.toASCIIString());
 
-        return ResponseEntity.created(uri).body(savedCategory);
+        return ResponseEntity.created(uri).body(savedPerson);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Category> findById(@PathVariable Long id) {
-        Category category = categoryRepository.findById(id).orElse(null);
-        return (category != null) ? ResponseEntity.ok(category) : ResponseEntity.notFound().build();
+    public ResponseEntity<Person> findById(@PathVariable Long id) {
+        Optional<Person> person = personRepository.findById(id);
+        return person.isPresent() ? ResponseEntity.ok(person.get()) : ResponseEntity.notFound().build();
     }
 }

@@ -1,31 +1,38 @@
 package com.enterprise.api.financiatrackr.entities;
 
+import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name = "tb_category")
-public class Category {
-
+@Table(name = "tb_person")
+public class Person {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @NotNull
-    @Size(min = 3, max = 50)
     private String name;
-    
-    public Category() {
+
+    @Embedded
+    private Address address;
+
+    @NotNull
+    private Boolean active;
+
+    public Person() {
     }
 
-    public Category(Long id, String name) {
+    public Person(Long id, @NotNull String name, Address address, @NotNull Boolean active) {
         this.id = id;
         this.name = name;
+        this.address = address;
+        this.active = active;
     }
 
     public Long getId() {
@@ -44,6 +51,22 @@ public class Category {
         this.name = name;
     }
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
+
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -60,7 +83,7 @@ public class Category {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Category other = (Category) obj;
+        Person other = (Person) obj;
         if (id == null) {
             if (other.id != null)
                 return false;
