@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.enterprise.api.financiatrackr.entities.Expenditure;
 import com.enterprise.api.financiatrackr.event.CreatedResourceEvent;
 import com.enterprise.api.financiatrackr.repositories.ExpenditureRepository;
+import com.enterprise.api.financiatrackr.services.ExpenditureService;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
@@ -27,6 +28,9 @@ public class ExpenditureController {
 
     @Autowired
     private ExpenditureRepository expenditureRepository;
+
+    @Autowired
+    private ExpenditureService expenditureService;
 
     @Autowired
     private ApplicationEventPublisher publisher;
@@ -45,7 +49,7 @@ public class ExpenditureController {
     @PostMapping
     public ResponseEntity<Expenditure> create(@Valid @RequestBody Expenditure expenditure,
             HttpServletResponse response) {
-        Expenditure savedExpenditure = expenditureRepository.save(expenditure);
+        Expenditure savedExpenditure = expenditureService.save(expenditure);
         publisher.publishEvent(new CreatedResourceEvent(this, response, savedExpenditure.getId()));
         return ResponseEntity.status(HttpStatus.CREATED).body(savedExpenditure);
     }

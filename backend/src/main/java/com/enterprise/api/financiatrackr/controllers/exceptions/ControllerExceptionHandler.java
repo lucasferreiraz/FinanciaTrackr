@@ -22,6 +22,8 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import com.enterprise.api.financiatrackr.services.exceptions.NonExistentOrInativePersonException;
+
 @ControllerAdvice
 public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -75,5 +77,13 @@ public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
 		Error error = new Error(userMessage, developersMessage);
 		return handleExceptionInternal(ex, error, new HttpHeaders(), HttpStatus.BAD_REQUEST, request);
     }
+
+    @ExceptionHandler({ NonExistentOrInativePersonException.class })
+	public ResponseEntity<Object> handleNonExistentOrInativePersonException(NonExistentOrInativePersonException ex) {
+		String userMessage = "Nonexistent or inative person";
+		String developersMessage = ex.toString();
+		Error error = new Error(userMessage, developersMessage);
+		return ResponseEntity.badRequest().body(error);
+	}
     
 }
