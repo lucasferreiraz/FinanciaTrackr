@@ -60,7 +60,7 @@ public class ExpenditureController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedExpenditure);
     }
 
-    @DeleteMapping
+    @DeleteMapping("{/id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         expenditureRepository.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
