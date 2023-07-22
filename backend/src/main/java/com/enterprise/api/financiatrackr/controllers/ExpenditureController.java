@@ -1,10 +1,11 @@
 package com.enterprise.api.financiatrackr.controllers;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -38,12 +39,13 @@ public class ExpenditureController {
     private ApplicationEventPublisher publisher;
 
     @GetMapping
-    public List<Expenditure> getAll(
+    public Page<Expenditure> getAll(
         @RequestParam(value = "minDueDate", defaultValue = "") String minDueDate,      
         @RequestParam(value = "maxDueDate", defaultValue = "") String maxDueDate,
-        @RequestParam(value = "description", defaultValue = "") String description
+        @RequestParam(value = "description", defaultValue = "") String description,
+        Pageable pageable
     ) {
-        return expenditureService.searchAll(minDueDate, maxDueDate, description);
+        return expenditureService.searchAll(minDueDate, maxDueDate, description, pageable);
     }
 
     @GetMapping("/{id}")
@@ -60,7 +62,7 @@ public class ExpenditureController {
         return ResponseEntity.status(HttpStatus.CREATED).body(savedExpenditure);
     }
 
-    @DeleteMapping("{/id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         expenditureRepository.deleteById(id);
         return ResponseEntity.status(HttpStatus.NO_CONTENT).build();

@@ -1,10 +1,11 @@
 package com.enterprise.api.financiatrackr.services;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.enterprise.api.financiatrackr.entities.Expenditure;
@@ -33,12 +34,12 @@ public class ExpenditureService {
         return expenditureRepository.save(expenditure);
     }
 
-    public List<Expenditure> searchAll(String minDueDate, String maxDueDate, String description) {
+    public Page<Expenditure> searchAll(String minDueDate, String maxDueDate, String description, Pageable pageable) {
         LocalDate minDate = minDueDate.equals("") ? null : LocalDate.parse(minDueDate);        
         LocalDate maxDate = maxDueDate.equals("") ? null : LocalDate.parse(maxDueDate);
         String desc = description.equals("") ? null : description;
 
-        return expenditureRepository.searchAll(minDate, maxDate, desc);
+        return expenditureRepository.searchAll(minDate, maxDate, desc, pageable);
 
     }
 }
