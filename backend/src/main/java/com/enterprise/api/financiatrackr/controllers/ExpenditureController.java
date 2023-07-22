@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.enterprise.api.financiatrackr.entities.Expenditure;
@@ -36,8 +37,12 @@ public class ExpenditureController {
     private ApplicationEventPublisher publisher;
 
     @GetMapping
-    public List<Expenditure> getAll() {
-        return expenditureRepository.findAll();
+    public List<Expenditure> getAll(
+        @RequestParam(value = "minDueDate", defaultValue = "") String minDueDate,      
+        @RequestParam(value = "maxDueDate", defaultValue = "") String maxDueDate,
+        @RequestParam(value = "description", defaultValue = "") String description
+    ) {
+        return expenditureService.searchAll(minDueDate, maxDueDate, description);
     }
 
     @GetMapping("/{id}")
