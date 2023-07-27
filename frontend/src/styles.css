@@ -1,8 +1,28 @@
 /* You can add global styles to this file, and also import other style files */
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
-
+@import "~primeflex/primeflex.css";
+@import "primeicons/primeicons.css";
 
 body {
+  margin: 0;
+  padding: 0 15px 0 15px;
   font-family: var(--font-family);
+  color: #404C51;
+}
+
+label {
+  font-weight: bold;
+}
+
+@media(min-width: 1200px) {
+  .container {
+    width: 1170px;
+    margin: 0 auto;
+  }
+}
+
+.col-acoes {
+  width: 150px;
+  text-align: center;
 }
