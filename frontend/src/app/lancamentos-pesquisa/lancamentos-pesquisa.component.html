@@ -22,49 +22,10 @@
     </div>
   </div>
 
-  <div class="grid">
-    <div class="col-12">
-      <p-table [value]="lancamentos" [paginator]="true" [rows]="2" responsiveLayout="stack" styleClass="p-datatable-gridlines">
-        <ng-template pTemplate="header">
-          <tr>
-            <th>Pessoa</th>
-            <th>Descrição</th>
-            <th>Vencimento</th>
-            <th>Pagamento</th>
-            <th>Valor</th>
-            <th class="col-acoes">Ações</th>
-          </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-lancamento>
-          <tr>
-            <td>{{ lancamento.pessoa }}</td>
-            <td>{{ lancamento.descricao }}</td>
-            <td>{{ lancamento.dataVencimento | date:'dd/MM/y' }}</td>
-            <td>{{ lancamento.dataPagamento | date:'dd/MM/y' }}</td>
-            <td [style.color]="lancamento.tipo === 'DESPESA' ? 'red' : 'blue'" >{{ lancamento.valor | currency:'BRL':'symbol':'1.2-2' }}</td>
-            <td>
-              <div class="col-acoes">
-                <button
-                  pButton
-                  pTooltip="Editar"
-                  tooltipPosition="top">
-                  <i class="pi pi-pencil"></i>
-                </button>
-                <button
-                  pButton
-                  pTooltip="Excluir"
-                  tooltipPosition="top">
-                  <i class="pi pi-trash"></i>
-                </button>
-              </div>
-            </td>
-          </tr>
-        </ng-template>
-      </p-table>
-    </div>
-    <div class="col-12">
-      <button pButton label="Novo Lançamento"></button>
-    </div>
+  <app-lancamentos-grid [lancamentos]="lancamentos"></app-lancamentos-grid>
+
+  <div class="col-12">
+    <button pButton label="Novo Lançamento"></button>
   </div>
 </div>
 
