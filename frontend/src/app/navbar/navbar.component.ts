@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
-  exibindoMenu: boolean = false
+  exibindoMenu: boolean = true
 }

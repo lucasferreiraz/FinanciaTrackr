@@ -1,0 +1,102 @@
+<div class="container">
+  <form #cadLancamentoForm="ngForm">
+    <div class="grid">
+
+      <div class="col-12">
+        <h1>Novo Lançamento</h1>
+      </div>
+
+      <div class="col-12">
+        <p-selectButton [options]="tipos" #tipo></p-selectButton>
+      </div>
+
+      <div class="col-6 md:col-3">
+        <label class="block">Vencimento</label>
+        <p-calendar [showIcon]="true" dateFormat="dd/mm/yy" class="w-12"
+          name="vencimento"
+          ngModel
+          #vencimento="ngModel"
+          [required]="true">
+        </p-calendar>
+        <app-message [control]="vencimento" error="required"
+          text="Informe uma data de vencimento">
+        </app-message>
+      </div>
+
+      <div class="col-6 md:col-3">
+        <label class="block">{{tipo.value === 'RECEITA' ? 'Recebimento' : 'Pagamento'}}</label>
+        <p-calendar [showIcon]="true" dateFormat="dd/mm/yy" class="w-12"></p-calendar>
+      </div>
+
+      <div class="col-12 md:col-9">
+        <label class="block">Descrição</label>
+        <input pInputText type="text" class="w-12"
+          name="descricao"
+          ngModel
+          #descricao="ngModel"
+          required
+          minlength="5">
+
+        <app-message [control]="descricao" error="required" text="Informe uma descrição"></app-message>
+
+        <app-message [control]="descricao" error="minlength"
+          text="Mínimo de {{ descricao.errors?.['minlength']?.requiredLength }} caracteres.">
+        </app-message>
+
+      </div>
+
+      <div class="col-12 md:col-3">
+        <label class="block">Valor</label>
+        <p-inputNumber mode="decimal" [min]="0" [maxFractionDigits]="2" class="w-full" [style]="{'width':'100%'}"
+          name="valor"
+          ngModel
+          #valor="ngModel"
+          [required]="true">
+        </p-inputNumber>
+        <app-message [control]="valor" error="required"
+          text="Informe um valor">
+        </app-message>
+      </div>
+
+      <div class="col-12 md:col-6">
+        <label class="block">Categoria</label>
+        <p-dropdown [options]="categorias" placeholder="Selecione" class="w-12"
+          name="categoria"
+          ngModel
+          #categoria="ngModel"
+          [required]="true">
+        </p-dropdown>
+        <app-message [control]="categoria" error="required"
+          text="Informe uma categoria">
+        </app-message>
+      </div>
+
+      <div class="col-12 md:col-6">
+        <label class="block">Pessoa</label>
+        <p-dropdown [options]="pessoas" placeholder="Selecione" [filter]="true" class="w-12"
+          name="pessoa"
+          ngModel
+          #pessoa="ngModel"
+          [required]="true">
+        </p-dropdown>
+        <app-message [control]="pessoa" error="required"
+          text="Informe uma pessoa">
+        </app-message>
+      </div>
+
+      <div class="col-12 md:col-12">
+        <label class="block">Observação</label>
+        <textarea input pInputTextarea rows="3" class="w-12"></textarea>
+      </div>
+
+      <div class="flex justify-content-start align-items-center p-2 gap-3 w-12">
+        <button pButton type="submit" label="Salvar"
+          [disabled]="cadLancamentoForm.invalid">
+        </button>
+        <button pButton type="button" label="Novo" class="p-button-info"></button>
+        <a href="javascript:;">Voltar para a pesquisa</a>
+      </div>
+
+    </div>
+  </form>
+</div>
