@@ -1,23 +1,23 @@
 <div class="grid">
   <div class="col-12">
-    <p-table [value]="lancamentos" [paginator]="true" [rows]="2" responsiveLayout="stack" styleClass="p-datatable-gridlines">
+    <p-table [value]="pessoas" [paginator]="true" [rows]="2" responsiveLayout="stack" styleClass="p-datatable-gridlines">
       <ng-template pTemplate="header">
         <tr>
-          <th>Pessoa</th>
-          <th>Descrição</th>
-          <th>Vencimento</th>
-          <th>Pagamento</th>
-          <th>Valor</th>
+          <th>Nome</th>
+          <th>Cidade</th>
+          <th>Estado</th>
+          <th>Status</th>
           <th class="col-acoes">Ações</th>
         </tr>
       </ng-template>
-      <ng-template pTemplate="body" let-lancamento>
+      <ng-template pTemplate="body" let-pessoa>
         <tr>
-          <td>{{ lancamento.pessoa }}</td>
-          <td>{{ lancamento.descricao }}</td>
-          <td>{{ lancamento.dataVencimento | date:'dd/MM/y' }}</td>
-          <td>{{ lancamento.dataPagamento | date:'dd/MM/y' }}</td>
-          <td [style.color]="lancamento.tipo === 'DESPESA' ? 'red' : 'blue'" >{{ lancamento.valor | currency:'BRL':'symbol':'1.2-2' }}</td>
+          <td>{{ pessoa.nome }}</td>
+          <td>{{ pessoa.cidade }}</td>
+          <td>{{ pessoa.estado }}</td>
+          <td [style.color]="pessoa.ativo ? 'blue' : 'red'">
+            {{ pessoa.ativo ? 'Ativo' : 'Inativo' }}
+          </td>
           <td>
             <div class="flex gap-3">
               <button

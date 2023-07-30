@@ -1,0 +1,109 @@
+<div class="container">
+  <form #cadPessoaForm="ngForm">
+    <div class="grid">
+
+      <div class="col-12">
+        <h1>Nova Pessoa</h1>
+      </div>
+
+      <div class="col-12 md:col-12">
+        <label class="block">Nome</label>
+        <input pInputText type="text" class="w-12"
+          name="nome"
+          ngModel
+          #nome="ngModel"
+          required
+          minlength="5">
+
+        <app-message [control]="nome" error="required" text="Informe um nome"></app-message>
+
+        <app-message [control]="nome" error="minlength"
+          text="Mínimo de {{ nome.errors?.['minlength']?.requiredLength }} caracteres.">
+        </app-message>
+      </div>
+
+      <div class="col-12 md:col-9">
+        <label class="block">Logradouro</label>
+        <input pInputText type="text" class="w-12"
+          name="logradouro"
+          ngModel
+          #logradouro="ngModel"
+          required>
+
+        <app-message [control]="logradouro" error="required" text="Informe um logradouro"></app-message>
+      </div>
+
+      <div class="col-12 md:col-3">
+        <label class="block">Número</label>
+        <input pInputText type="text" class="w-12"
+          name="numero"
+          ngModel
+          #numero="ngModel"
+          required>
+
+        <app-message [control]="numero" error="required" text="Informe um número"></app-message>
+      </div>
+
+      <div class="col-12 md:col-4">
+        <label class="block">Complemento</label>
+        <input pInputText type="text" class="w-12">
+      </div>
+
+      <div class="col-12 md:col-4">
+        <label class="block">Bairro</label>
+        <input pInputText type="text" class="w-12"
+          name="bairro"
+          ngModel
+          #bairro="ngModel"
+          required>
+
+        <app-message [control]="bairro" error="required" text="Informe um bairro"></app-message>
+      </div>
+
+      <div class="col-12 md:col-4">
+        <label class="block">CEP</label>
+        <p-inputMask class="w-full" [style]="{'width':'100%'}"
+          name="cep"
+          mask="99.999-999"
+          ngModel
+          #cep="ngModel"
+          [required]="true">
+        </p-inputMask>
+
+        <app-message [control]="cep" error="required" text="Informe um CEP"></app-message>
+      </div>
+
+      <div class="col-12 md:col-6">
+        <label class="block">Cidade</label>
+        <input pInputText type="text" class="w-12"
+          name="cidade"
+          ngModel
+          #cidade="ngModel"
+          required>
+
+        <app-message [control]="cidade" error="required" text="Informe uma cidade"></app-message>
+      </div>
+
+      <div class="col-12 md:col-6">
+        <label class="block">Estado</label>
+        <input pInputText type="text" class="w-12"
+          name="estado"
+          ngModel
+          #estado="ngModel"
+          required>
+
+        <app-message [control]="estado" error="required" text="Informe um estado"></app-message>
+      </div>
+
+      <div class="flex justify-content-start align-items-center p-2 gap-3 w-12">
+        <button pButton type="submit" label="Salvar"
+          [disabled]="cadPessoaForm.invalid">
+        </button>
+        <button pButton type="button" label="Novo" class="p-button-info"></button>
+        <a href="javascript:;">Voltar para a pesquisa</a>
+      </div>
+
+    </div>
+  </form>
+</div>
+

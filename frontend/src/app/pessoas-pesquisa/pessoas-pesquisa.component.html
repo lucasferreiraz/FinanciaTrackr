@@ -1,0 +1,24 @@
+<div class="container">
+  <div class="grid">
+    <div class="col-12">
+      <h1>Pessoas</h1>
+    </div>
+
+    <div class="col-12">
+      <label for="">Nome</label>
+      <input class="w-12" type="text" pInputText />
+    </div>
+
+    <div class="col-12">
+      <button pButton label="Pesquisar"></button>
+    </div>
+  </div>
+
+  <app-pessoas-grid [pessoas]="pessoas"></app-pessoas-grid>
+
+  <div class="col-12">
+    <button pButton label="Nova Pessoa"></button>
+  </div>
+</div>
+
+
