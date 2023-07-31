@@ -1,6 +1,7 @@
 package com.enterprise.api.financiatrackr.repositories;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.enterprise.api.financiatrackr.entities.Expenditure;
+import com.enterprise.api.financiatrackr.repositories.projections.ExpenditureResume;
 
 public interface ExpenditureRepository extends JpaRepository<Expenditure, Long> {
 
@@ -20,4 +22,10 @@ public interface ExpenditureRepository extends JpaRepository<Expenditure, Long> 
             "(COALESCE(:description) IS NULL OR LOWER(obj.description) LIKE LOWER(CONCAT('%', :description, '%')))")
     public Page<Expenditure> searchAll(LocalDate minDate, LocalDate maxDate, String description, Pageable pageable);
 
+    @Query("SELECT NEW com.enterprise.api.financiatrackr.repositories.projections.ExpenditureResume(e.id, e.description, e.dueDate, e.paymentDate, e.value, e.type, c.name, p.name) "
+       + "FROM Expenditure e "
+       + "INNER JOIN e.category c "
+       + "INNER JOIN e.person p "
+       + "ORDER BY e.id")
+    public List<ExpenditureResume> resume();
 }

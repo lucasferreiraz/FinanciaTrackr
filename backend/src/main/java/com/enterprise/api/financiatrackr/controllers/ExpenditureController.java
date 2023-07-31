@@ -1,5 +1,6 @@
 package com.enterprise.api.financiatrackr.controllers;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.enterprise.api.financiatrackr.entities.Expenditure;
 import com.enterprise.api.financiatrackr.event.CreatedResourceEvent;
 import com.enterprise.api.financiatrackr.repositories.ExpenditureRepository;
+import com.enterprise.api.financiatrackr.repositories.projections.ExpenditureResume;
 import com.enterprise.api.financiatrackr.services.ExpenditureService;
 
 import jakarta.servlet.http.HttpServletResponse;
@@ -46,6 +48,11 @@ public class ExpenditureController {
         Pageable pageable
     ) {
         return expenditureService.searchAll(minDueDate, maxDueDate, description, pageable);
+    }
+
+    @GetMapping(params = "resume")
+    public List<ExpenditureResume> getAll() {
+        return expenditureRepository.resume();
     }
 
     @GetMapping("/{id}")
