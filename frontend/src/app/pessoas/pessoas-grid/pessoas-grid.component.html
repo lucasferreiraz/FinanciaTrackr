@@ -1,6 +1,14 @@
 <div class="grid">
   <div class="col-12">
-    <p-table [value]="pessoas" [paginator]="true" [rows]="2" responsiveLayout="stack" styleClass="p-datatable-gridlines">
+    <p-table
+      [value]="pessoas"
+      [paginator]="true"
+      [rows]="itensPorPagina"
+      [totalRecords]="totalRegistros"
+      [lazy]="true"
+      (onLazyLoad)="aoMudarPagina($event)"
+      responsiveLayout="stack"
+      styleClass="p-datatable-gridlines">
       <ng-template pTemplate="header">
         <tr>
           <th>Nome</th>
@@ -12,11 +20,11 @@
       </ng-template>
       <ng-template pTemplate="body" let-pessoa>
         <tr>
-          <td>{{ pessoa.nome }}</td>
-          <td>{{ pessoa.cidade }}</td>
-          <td>{{ pessoa.estado }}</td>
-          <td [style.color]="pessoa.ativo ? 'blue' : 'red'">
-            {{ pessoa.ativo ? 'Ativo' : 'Inativo' }}
+          <td>{{ pessoa.name }}</td>
+          <td>{{ pessoa.address.city }}</td>
+          <td>{{ pessoa.address.state }}</td>
+          <td [style.color]="pessoa.active ? 'blue' : 'red'">
+            {{ pessoa.active ? 'Ativo' : 'Inativo' }}
           </td>
           <td>
             <div class="flex gap-3">
