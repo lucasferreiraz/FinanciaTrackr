@@ -1,6 +1,5 @@
 package com.enterprise.api.financiatrackr.controllers;
 
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -51,8 +50,13 @@ public class ExpenditureController {
     }
 
     @GetMapping(params = "resume")
-    public List<ExpenditureResume> getAll() {
-        return expenditureRepository.resume();
+    public Page<ExpenditureResume> getAllResumed(
+        @RequestParam(value = "minDueDate", defaultValue = "") String minDueDate,      
+        @RequestParam(value = "maxDueDate", defaultValue = "") String maxDueDate,
+        @RequestParam(value = "description", defaultValue = "") String description,
+        Pageable pageable
+    ) {
+        return expenditureService.searchAllResumed(minDueDate, maxDueDate, description, pageable);
     }
 
     @GetMapping("/{id}")

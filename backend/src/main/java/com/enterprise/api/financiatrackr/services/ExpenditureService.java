@@ -12,6 +12,7 @@ import com.enterprise.api.financiatrackr.entities.Expenditure;
 import com.enterprise.api.financiatrackr.entities.Person;
 import com.enterprise.api.financiatrackr.repositories.ExpenditureRepository;
 import com.enterprise.api.financiatrackr.repositories.PersonRepository;
+import com.enterprise.api.financiatrackr.repositories.projections.ExpenditureResume;
 import com.enterprise.api.financiatrackr.services.exceptions.NonExistentOrInativePersonException;
 
 @Service
@@ -40,6 +41,14 @@ public class ExpenditureService {
         String desc = description.equals("") ? null : description;
 
         return expenditureRepository.searchAll(minDate, maxDate, desc, pageable);
+    }
+
+    public Page<ExpenditureResume> searchAllResumed(String minDueDate, String maxDueDate, String description, Pageable pageable) {
+        LocalDate minDate = minDueDate.equals("") ? null : LocalDate.parse(minDueDate);        
+        LocalDate maxDate = maxDueDate.equals("") ? null : LocalDate.parse(maxDueDate);
+        String desc = description.equals("") ? null : description;
+
+        return expenditureRepository.resume(minDate, maxDate, desc, pageable);
 
     }
 }

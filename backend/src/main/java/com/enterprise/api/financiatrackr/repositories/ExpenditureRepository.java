@@ -1,7 +1,6 @@
 package com.enterprise.api.financiatrackr.repositories;
 
 import java.time.LocalDate;
-import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,6 +25,10 @@ public interface ExpenditureRepository extends JpaRepository<Expenditure, Long> 
        + "FROM Expenditure e "
        + "INNER JOIN e.category c "
        + "INNER JOIN e.person p "
+       + "WHERE "
+       + "(COALESCE(:minDate) IS NULL OR e.dueDate >= :minDate) AND "
+       + "(COALESCE(:maxDate) IS NULL OR e.dueDate <= :maxDate) AND "
+       + "(COALESCE(:description) IS NULL OR LOWER(e.description) LIKE LOWER(CONCAT('%', :description, '%'))) "
        + "ORDER BY e.id")
-    public List<ExpenditureResume> resume();
+    public Page<ExpenditureResume> resume(LocalDate minDate, LocalDate maxDate, String description, Pageable pageable);
 }
