@@ -3,10 +3,12 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
-export interface LancamentoFiltro {
-  description: string;
-  minDueDate?: Date,
+export class LancamentoFiltro {
+  description!: string
+  minDueDate?: Date
   maxDueDate?: Date
+  pagina = 0
+  itensPorPagina = 5
 }
 
 @Injectable({
@@ -23,6 +25,9 @@ export class LancamentoService {
 
   pesquisar(filtro: LancamentoFiltro): Observable<any> {
     let params = new HttpParams()
+
+    params = params.set('page', filtro.pagina)
+    params = params.set('size', filtro.itensPorPagina)
 
     if (filtro.description)
       params = params.set('description', filtro.description)

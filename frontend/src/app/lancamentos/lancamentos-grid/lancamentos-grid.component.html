@@ -1,6 +1,14 @@
 <div class="grid">
   <div class="col-12">
-    <p-table [value]="lancamentos" [paginator]="true" [rows]="2" responsiveLayout="stack" styleClass="p-datatable-gridlines">
+    <p-table
+      [value]="lancamentos"
+      [paginator]="true"
+      [rows]="itensPorPagina"
+      [totalRecords]="totalRegistros"
+      [lazy]="true"
+      (onLazyLoad)="aoMudarPagina($event)"
+      responsiveLayout="stack"
+      styleClass="p-datatable-gridlines">
       <ng-template pTemplate="header">
         <tr>
           <th>Pessoa</th>

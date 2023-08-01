@@ -10,20 +10,20 @@
         <label for="">Descrição</label>
         <input class="w-12" type="text" pInputText
           name="descricao"
-          [(ngModel)]="descricao"/>
+          [(ngModel)]="filtro.description"/>
       </div>
 
       <div class="col-12">
         <label for="" style="display: block;">Vencimento</label>
         <p-calendar dateFormat="dd/mm/yy" [inputStyle]="{width: '95px'}"
           name="vencimentoInicio"
-          [(ngModel)]="dataVencimentoInicio">
+          [(ngModel)]="filtro.minDueDate">
         </p-calendar>
 
         <label> até </label>
         <p-calendar dateFormat="dd/mm/yy" [inputStyle]="{width: '95px'}"
           name="vencimentoFim"
-          [(ngModel)]="dataVencimentoFim">
+          [(ngModel)]="filtro.maxDueDate">
         </p-calendar>
       </div>
 
@@ -33,7 +33,12 @@
     </div>
   </form>
 
-  <app-lancamentos-grid [lancamentos]="lancamentos"></app-lancamentos-grid>
+  <app-lancamentos-grid
+    [lancamentos]="lancamentos"
+    [itensPorPagina]="itensPorPagina"
+    [totalRegistros]="totalRegistros"
+    (paginaMudou)="pesquisar($event)">
+  </app-lancamentos-grid>
 
   <div class="col-12">
     <button pButton label="Novo Lançamento" routerLink="/lancamentos/novo"></button>
