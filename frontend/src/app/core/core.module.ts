@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
 
 
@@ -13,6 +13,9 @@ import { NavbarComponent } from './navbar/navbar.component';
   ],
   exports: [
     NavbarComponent
+  ],
+  providers: [
+    DatePipe
   ]
 })
 export class CoreModule { }

@@ -1,26 +1,37 @@
 <div class="container">
-  <div class="grid">
-    <div class="col-12">
-      <h1>Lançamentos</h1>
-    </div>
 
-    <div class="col-12">
-      <label for="">Descrição</label>
-      <input class="w-12" type="text" pInputText />
-    </div>
+  <form autocomplete="off" (ngSubmit)="pesquisar()">
+    <div class="grid">
+      <div class="col-12">
+        <h1>Lançamentos</h1>
+      </div>
 
-    <div class="col-12">
-      <label for="" style="display: block;">Vencimento</label>
-      <input type="text" style="width: 95px" pInputText />
+      <div class="col-12">
+        <label for="">Descrição</label>
+        <input class="w-12" type="text" pInputText
+          name="descricao"
+          [(ngModel)]="descricao"/>
+      </div>
 
-      <label> até </label>
-      <input type="text" style="width: 95px" pInputText />
-    </div>
+      <div class="col-12">
+        <label for="" style="display: block;">Vencimento</label>
+        <p-calendar dateFormat="dd/mm/yy" [inputStyle]="{width: '95px'}"
+          name="vencimentoInicio"
+          [(ngModel)]="dataVencimentoInicio">
+        </p-calendar>
 
-    <div class="col-12">
-      <button pButton label="Pesquisar"></button>
+        <label> até </label>
+        <p-calendar dateFormat="dd/mm/yy" [inputStyle]="{width: '95px'}"
+          name="vencimentoFim"
+          [(ngModel)]="dataVencimentoFim">
+        </p-calendar>
+      </div>
+
+      <div class="col-12">
+        <button pButton label="Pesquisar"></button>
+      </div>
     </div>
-  </div>
+  </form>
 
   <app-lancamentos-grid [lancamentos]="lancamentos"></app-lancamentos-grid>
 
@@ -28,4 +39,3 @@
     <button pButton label="Novo Lançamento"></button>
   </div>
 </div>
-
