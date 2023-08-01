@@ -23,7 +23,9 @@
               <button
                 pButton
                 pTooltip="Editar"
-                tooltipPosition="top">
+                tooltipPosition="top"
+                [routerLink]="['/lancamentos', lancamento.id]"
+                >
                 <i class="pi pi-pencil"></i>
               </button>
               <button

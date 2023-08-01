@@ -17,6 +17,7 @@ import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-ca
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { LancamentosGridComponent } from './lancamentos-grid/lancamentos-grid.component';
 import { SharedModule } from '../shared/shared.module';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -29,6 +30,7 @@ import { SharedModule } from '../shared/shared.module';
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule,
     SharedModule,
     ButtonModule,
     CalendarModule,

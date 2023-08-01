@@ -1,11 +1,20 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-lancamento-cadastro',
   templateUrl: './lancamento-cadastro.component.html',
   styleUrls: ['./lancamento-cadastro.component.css']
 })
-export class LancamentoCadastroComponent {
+export class LancamentoCadastroComponent implements OnInit {
+
+  constructor(
+    private route: ActivatedRoute
+  ) { }
+
+  ngOnInit(): void {
+
+  }
 
   tipos = [
     { label: 'Receita', value: 'RECEITA' },

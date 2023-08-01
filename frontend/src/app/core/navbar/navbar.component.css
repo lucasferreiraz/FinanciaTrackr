@@ -16,6 +16,7 @@
   margin: 0;
   z-index: 999;
   background-color: #3a3633;
+  padding: 0;
   list-style: none;
 }
 
@@ -38,4 +39,8 @@
 
 .navbar-menuitem a:hover {
   color: #fff;
+}
+
+.navbar-menuitem.ativo {
+  background-color: #494541;
 }

@@ -33,7 +33,6 @@ export class LancamentosPesquisaComponent implements OnInit {
       .subscribe(
         data => {
           this.lancamentos = data
-          console.log(data)
         }
       )
   }
