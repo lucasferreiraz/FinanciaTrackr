@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { CategoriaService } from 'src/app/categorias/categoria.service';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
+import { Lancamento } from 'src/app/core/model';
 import { PessoaService } from 'src/app/pessoas/pessoa.service';
 
 @Component({
@@ -12,13 +14,14 @@ import { PessoaService } from 'src/app/pessoas/pessoa.service';
 export class LancamentoCadastroComponent implements OnInit {
 
   tipos = [
-    { label: 'Receita', value: 'RECEITA' },
-    { label: 'Despesa', value: 'DESPESA' },
+    { label: 'Receita', value: 'REVENUE' },
+    { label: 'Despesa', value: 'EXPENSE' },
   ];
 
   categorias = [];
-
   pessoas = [];
+
+  lancamento = new Lancamento()
 
   constructor(
     private route: ActivatedRoute,
@@ -30,6 +33,10 @@ export class LancamentoCadastroComponent implements OnInit {
   ngOnInit():void {
     this.carregarCategorias()
     this.carregarPessoas()
+  }
+
+  salvar(lancamentoForm: NgForm) {
+    console.log(this.lancamento);
   }
 
   carregarCategorias() {
