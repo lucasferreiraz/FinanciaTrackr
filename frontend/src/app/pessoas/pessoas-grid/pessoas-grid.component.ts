@@ -62,4 +62,21 @@ export class PessoasGridComponent {
         }
       )
   }
+
+  mudarStatus(pessoa: any): void {
+    const novoStatus = !pessoa.active;
+
+    this.pessoaService.mudarStatus(pessoa.id, novoStatus)
+      .subscribe(() => {
+        const acao = novoStatus ? 'ativada' : 'desativada';
+
+        pessoa.active = novoStatus;
+        this.messageService.add({ severity: 'success',
+          detail: `Pessoa ${acao} com sucesso!` });
+      },
+      error => {
+        this.errorHandler.handle(error)
+      }
+      )
+  }
 }

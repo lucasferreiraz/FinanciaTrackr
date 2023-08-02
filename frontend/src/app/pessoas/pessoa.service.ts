@@ -1,4 +1,4 @@
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 
@@ -34,6 +34,15 @@ export class PessoaService {
   pesquisarTodos(): Observable<any> {
     return this.http.get(`${this.baseUrl}`)
   }
+
+  mudarStatus(id: number, ativo: boolean): Observable<any> {
+    let headers = new HttpHeaders()
+
+    headers = headers.append('Content-Type', 'application/json')
+
+    return this.http.put(`${this.baseUrl}/${id}/active`, ativo, { headers })
+  }
+
 
   excluir(id: any): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`)
