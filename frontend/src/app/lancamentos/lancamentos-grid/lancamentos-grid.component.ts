@@ -28,11 +28,14 @@ export class LancamentosGridComponent {
   }
 
   excluir(lancamento: any) {
-    console.log(lancamento)
     this.lancamentoService.excluir(lancamento.id)
       .subscribe(() => {
-        this.excluirLancamento.emit()
-        this.grid.first = 0
+        if(this.grid.first === 0) {
+          this.paginaMudou.emit(0)
+        } else {
+          this.excluirLancamento.emit()
+          this.grid.first = 0
+        }
       })
   }
 
