@@ -34,4 +34,8 @@ export class PessoaService {
   pesquisarTodos(): Observable<any> {
     return this.http.get(`${this.baseUrl}`)
   }
+
+  excluir(id: any): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${id}`)
+  }
 }

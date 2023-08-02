@@ -34,4 +34,8 @@ export class PessoasPesquisaComponent implements OnInit {
         }
       )
   }
+
+  onExcluirPessoa() {
+    this.pesquisar()
+  }
 }

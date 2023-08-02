@@ -22,7 +22,8 @@
     [pessoas]="pessoas"
     [itensPorPagina]="itensPorPagina"
     [totalRegistros]="totalRegistros"
-    (paginaMudou)="pesquisar($event)">
+    (paginaMudou)="pesquisar($event)"
+    (excluirPessoa)="onExcluirPessoa()">
   </app-pessoas-grid>
 
   <div class="col-12">
