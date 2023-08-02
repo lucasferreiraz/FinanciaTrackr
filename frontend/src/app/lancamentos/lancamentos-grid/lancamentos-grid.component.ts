@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core
 import { TableLazyLoadEvent } from 'primeng/table';
 import { LancamentoService } from '../lancamento.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 
 @Component({
   selector: 'app-lancamentos-grid',
@@ -22,7 +23,8 @@ export class LancamentosGridComponent {
   constructor(
     private lancamentoService: LancamentoService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private errorHandler: ErrorHandlerService
   ) { }
 
   aoMudarPagina(event: TableLazyLoadEvent) {
@@ -36,7 +38,6 @@ export class LancamentosGridComponent {
       accept: () => {
         this.excluir(lancamento);
       }
-
     });
   }
 
@@ -49,12 +50,16 @@ export class LancamentosGridComponent {
           this.excluirLancamento.emit()
           this.grid.first = 0
         }
-      })
 
-    this.messageService.add({
-      severity: 'success',
-      detail: 'Lançamento excluído com sucesso!'
-    })
+        this.messageService.add({
+          severity: 'success',
+          detail: 'Lançamento excluído com sucesso!'
+        })
+      },
+        error => {
+          this.errorHandler.handle(error)
+        }
+      )
   }
 
 }

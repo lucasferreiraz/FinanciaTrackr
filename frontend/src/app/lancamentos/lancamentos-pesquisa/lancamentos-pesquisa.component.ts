@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LancamentoFiltro, LancamentoService } from '../lancamento.service';
+import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 
 @Component({
   selector: 'app-lancamentos-pesquisa',
@@ -15,7 +16,8 @@ export class LancamentosPesquisaComponent {
   lancamentos = [];
 
   constructor(
-    private lancamentoService: LancamentoService
+    private lancamentoService: LancamentoService,
+    private errorHandler: ErrorHandlerService
   ) { }
 
   pesquisar(pagina = 0) {
@@ -27,6 +29,9 @@ export class LancamentosPesquisaComponent {
           this.itensPorPagina = data['size']
           this.totalRegistros = data['totalElements']
           this.lancamentos = data['content']
+        },
+        error => {
+          this.errorHandler.handle(error)
         }
       )
   }

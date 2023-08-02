@@ -6,7 +6,7 @@ import { PessoaFiltro, PessoaService } from '../pessoa.service';
   templateUrl: './pessoas-pesquisa.component.html',
   styleUrls: ['./pessoas-pesquisa.component.css']
 })
-export class PessoasPesquisaComponent implements OnInit {
+export class PessoasPesquisaComponent {
 
   itensPorPagina = 0
   totalRegistros = 0
@@ -17,10 +17,6 @@ export class PessoasPesquisaComponent implements OnInit {
   constructor(
     private pessoaService: PessoaService
   ) { }
-
-  ngOnInit(): void {
-    this.pesquisar()
-  }
 
   pesquisar(pagina = 0) {
     this.filtro.pagina = pagina

@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core
 import { TableLazyLoadEvent } from 'primeng/table';
 import { PessoaService } from '../pessoa.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 
 @Component({
   selector: 'app-pessoas-grid',
@@ -22,7 +23,8 @@ export class PessoasGridComponent {
   constructor(
     private pessoaService: PessoaService,
     private messageService: MessageService,
-    private confirmationService: ConfirmationService
+    private confirmationService: ConfirmationService,
+    private errorHandler: ErrorHandlerService
   ) { }
 
   aoMudarPagina(event: TableLazyLoadEvent) {
@@ -48,11 +50,16 @@ export class PessoasGridComponent {
           this.excluirPessoa.emit()
           this.grid.first = 0
         }
-      })
 
-    this.messageService.add({
-      severity: 'success',
-      detail: 'Lançamento excluído com sucesso!'
-    })
+        this.messageService.add({
+          severity: 'success',
+          detail: 'Pessoa excluída com sucesso!'
+        })
+      },
+        error => {
+          console.log(error)
+          this.errorHandler.handle(error)
+        }
+      )
   }
 }
