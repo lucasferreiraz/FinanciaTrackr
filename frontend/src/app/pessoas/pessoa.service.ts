@@ -31,7 +31,7 @@ export class PessoaService {
     return this.http.get(`${this.baseUrl}`, { params })
   }
 
-  pesquisarTodos(): Observable<any> {
+  pesquisarTodas(): Observable<any> {
     return this.http.get(`${this.baseUrl}`)
   }
 
