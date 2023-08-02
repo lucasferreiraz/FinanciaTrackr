@@ -6,10 +6,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { ToastModule } from 'primeng/toast';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { ConfirmDialogModule } from 'primeng/confirmdialog';
-
 import { CoreModule } from './core/core.module';
 import { LancamentosModule } from './lancamentos/lancamentos.module';
 import { PessoasModule } from './pessoas/pessoas.module';
@@ -37,14 +33,9 @@ const routes: Routes = [
     CoreModule,
     LancamentosModule,
     PessoasModule,
-    ToastModule,
-    ConfirmDialogModule,
     RouterModule.forRoot(routes)
   ],
-  providers: [
-    MessageService,
-    ConfirmationService
-  ],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

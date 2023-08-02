@@ -3,6 +3,10 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { NavbarComponent } from './navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 
+import { ToastModule } from 'primeng/toast';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
 
 
 @NgModule({
@@ -11,13 +15,19 @@ import { RouterModule } from '@angular/router';
   ],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    ToastModule,
+    ConfirmDialogModule
   ],
   exports: [
-    NavbarComponent
+    NavbarComponent,
+    ToastModule,
+    ConfirmDialogModule
   ],
   providers: [
-    DatePipe
+    DatePipe,
+    ConfirmationService,
+    MessageService
   ]
 })
 export class CoreModule { }
