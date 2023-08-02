@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { CategoriaService } from 'src/app/categorias/categoria.service';
+import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -8,24 +10,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class LancamentoCadastroComponent implements OnInit {
 
-  constructor(
-    private route: ActivatedRoute
-  ) { }
-
-  ngOnInit(): void {
-
-  }
-
   tipos = [
     { label: 'Receita', value: 'RECEITA' },
     { label: 'Despesa', value: 'DESPESA' },
   ];
 
-  categorias = [
-    { label: 'Alimentação', value: 1 },
-    { label: 'Transporte', value: 2 },
-
-  ];
+  categorias = [];
 
   pessoas = [
     { label: 'Alberto Nunes de Souza', value: 1 },
@@ -33,5 +23,22 @@ export class LancamentoCadastroComponent implements OnInit {
     { label: 'João Souza Santos', value: 3 },
   ];
 
+  constructor(
+    private route: ActivatedRoute,
+    private categoriaService: CategoriaService,
+    private errorHandler: ErrorHandlerService
+  ) { }
+
+  ngOnInit():void {
+    this.carregarCategorias()
+  }
+
+  carregarCategorias() {
+    return this.categoriaService.pesquisarTodas()
+      .subscribe(categorias => {
+        this.categorias = categorias.map((c:any) => ({ label: c.name, value: c.id }));
+      },
+      error => this.errorHandler.handle(error))
+  }
 
 }
