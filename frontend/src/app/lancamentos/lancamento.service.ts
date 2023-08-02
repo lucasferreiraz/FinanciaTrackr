@@ -41,4 +41,8 @@ export class LancamentoService {
     return this.http.get(`${this.baseUrl}?resume`, { params })
   }
 
+  excluir(id: any): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${id}`)
+  }
+
 }

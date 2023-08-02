@@ -30,4 +30,8 @@ export class LancamentosPesquisaComponent {
         }
       )
   }
+
+  onExcluirLancamento() {
+    this.pesquisar()
+  }
 }

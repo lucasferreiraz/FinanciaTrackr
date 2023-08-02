@@ -37,7 +37,8 @@
     [lancamentos]="lancamentos"
     [itensPorPagina]="itensPorPagina"
     [totalRegistros]="totalRegistros"
-    (paginaMudou)="pesquisar($event)">
+    (paginaMudou)="pesquisar($event)"
+    (excluirLancamento)="onExcluirLancamento()">
   </app-lancamentos-grid>
 
   <div class="col-12">

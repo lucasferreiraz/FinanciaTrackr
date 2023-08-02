@@ -8,7 +8,8 @@
       [lazy]="true"
       (onLazyLoad)="aoMudarPagina($event)"
       responsiveLayout="stack"
-      styleClass="p-datatable-gridlines">
+      styleClass="p-datatable-gridlines"
+      #tabela>
       <ng-template pTemplate="header">
         <tr>
           <th>Pessoa</th>
@@ -39,7 +40,8 @@
               <button
                 pButton
                 pTooltip="Excluir"
-                tooltipPosition="top">
+                tooltipPosition="top"
+                (click)="excluir(lancamento)">
                 <i class="pi pi-trash"></i>
               </button>
             </div>

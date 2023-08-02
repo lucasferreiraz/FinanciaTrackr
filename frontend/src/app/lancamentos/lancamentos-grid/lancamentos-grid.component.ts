@@ -1,5 +1,6 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { TableLazyLoadEvent } from 'primeng/table';
+import { LancamentoService } from '../lancamento.service';
 
 @Component({
   selector: 'app-lancamentos-grid',
@@ -13,10 +14,26 @@ export class LancamentosGridComponent {
   @Input() totalRegistros: any;
 
   @Output() paginaMudou = new EventEmitter<number>();
+  @Output() excluirLancamento = new EventEmitter<any>();
+
+  @ViewChild('tabela') grid: any
+
+  constructor(
+    private lancamentoService: LancamentoService
+  ) { }
 
   aoMudarPagina(event: TableLazyLoadEvent) {
     const pagina = (event.first ?? 0) / (event.rows ?? 1)
     this.paginaMudou.emit(pagina)
+  }
+
+  excluir(lancamento: any) {
+    console.log(lancamento)
+    this.lancamentoService.excluir(lancamento.id)
+      .subscribe(() => {
+        this.excluirLancamento.emit()
+        this.grid.first = 0
+      })
   }
 
 }
