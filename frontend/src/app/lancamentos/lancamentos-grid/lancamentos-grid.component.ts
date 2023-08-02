@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Input, Output, ViewChild } from '@angular/core';
 import { TableLazyLoadEvent } from 'primeng/table';
 import { LancamentoService } from '../lancamento.service';
+import { ConfirmationService, MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-lancamentos-grid',
@@ -19,7 +20,9 @@ export class LancamentosGridComponent {
   @ViewChild('tabela') grid: any
 
   constructor(
-    private lancamentoService: LancamentoService
+    private lancamentoService: LancamentoService,
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService
   ) { }
 
   aoMudarPagina(event: TableLazyLoadEvent) {
@@ -27,16 +30,31 @@ export class LancamentosGridComponent {
     this.paginaMudou.emit(pagina)
   }
 
+  confirmarExclusao(lancamento: any): void {
+    this.confirmationService.confirm({
+      message: 'Tem certeza que deseja excluir?',
+      accept: () => {
+        this.excluir(lancamento);
+      }
+
+    });
+  }
+
   excluir(lancamento: any) {
     this.lancamentoService.excluir(lancamento.id)
       .subscribe(() => {
-        if(this.grid.first === 0) {
+        if (this.grid.first === 0) {
           this.paginaMudou.emit(0)
         } else {
           this.excluirLancamento.emit()
           this.grid.first = 0
         }
       })
+
+    this.messageService.add({
+      severity: 'success',
+      detail: 'Lançamento excluído com sucesso!'
+    })
   }
 
 }
