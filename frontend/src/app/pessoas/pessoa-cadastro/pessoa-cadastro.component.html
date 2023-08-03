@@ -1,5 +1,5 @@
 <div class="container">
-  <form #cadPessoaForm="ngForm">
+  <form #cadPessoaForm="ngForm" (ngSubmit)="salvar(cadPessoaForm)">
     <div class="grid">
 
       <div class="col-12">
@@ -13,7 +13,8 @@
           ngModel
           #nome="ngModel"
           required
-          minlength="5">
+          minlength="5"
+          [(ngModel)]="pessoa.name">
 
         <app-message [control]="nome" error="required" text="Informe um nome"></app-message>
 
@@ -28,7 +29,8 @@
           name="logradouro"
           ngModel
           #logradouro="ngModel"
-          required>
+          required
+          [(ngModel)]="pessoa.address.street">
 
         <app-message [control]="logradouro" error="required" text="Informe um logradouro"></app-message>
       </div>
@@ -39,14 +41,17 @@
           name="numero"
           ngModel
           #numero="ngModel"
-          required>
+          required
+          [(ngModel)]="pessoa.address.number">
 
         <app-message [control]="numero" error="required" text="Informe um número"></app-message>
       </div>
 
       <div class="col-12 md:col-4">
         <label class="block">Complemento</label>
-        <input pInputText type="text" class="w-12">
+        <input pInputText type="text" class="w-12"
+          name="complemento"
+          [(ngModel)]="pessoa.address.complement">
       </div>
 
       <div class="col-12 md:col-4">
@@ -55,7 +60,8 @@
           name="bairro"
           ngModel
           #bairro="ngModel"
-          required>
+          required
+          [(ngModel)]="pessoa.address.district">
 
         <app-message [control]="bairro" error="required" text="Informe um bairro"></app-message>
       </div>
@@ -67,7 +73,8 @@
           mask="99.999-999"
           ngModel
           #cep="ngModel"
-          [required]="true">
+          [required]="true"
+          [(ngModel)]="pessoa.address.zipcode">
         </p-inputMask>
 
         <app-message [control]="cep" error="required" text="Informe um CEP"></app-message>
@@ -79,7 +86,8 @@
           name="cidade"
           ngModel
           #cidade="ngModel"
-          required>
+          required
+          [(ngModel)]="pessoa.address.city">
 
         <app-message [control]="cidade" error="required" text="Informe uma cidade"></app-message>
       </div>
@@ -90,7 +98,8 @@
           name="estado"
           ngModel
           #estado="ngModel"
-          required>
+          required
+          [(ngModel)]="pessoa.address.state">
 
         <app-message [control]="estado" error="required" text="Informe um estado"></app-message>
       </div>
@@ -100,7 +109,7 @@
           [disabled]="cadPessoaForm.invalid">
         </button>
         <button pButton type="button" label="Novo" class="p-button-info"></button>
-        <a href="javascript:;">Voltar para a pesquisa</a>
+        <a routerLink="/pessoas">Voltar para a pesquisa</a>
       </div>
 
     </div>

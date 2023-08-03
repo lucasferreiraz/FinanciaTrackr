@@ -17,6 +17,7 @@ import { PrimeNGConfig } from 'primeng/api';
 
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { PessoaCadastroComponent } from './pessoas/pessoa-cadastro/pessoa-cadastro.component';
 
 registerLocaleData(localePt);
 
@@ -24,7 +25,8 @@ const routes: Routes = [
   { path: 'lancamentos', component: LancamentosPesquisaComponent },
   { path: 'lancamentos/novo', component: LancamentoCadastroComponent},
   { path: 'lancamentos/:id', component: LancamentoCadastroComponent},
-  { path: 'pessoas', component: PessoasPesquisaComponent}
+  { path: 'pessoas', component: PessoasPesquisaComponent},
+  { path: 'pessoas/nova', component: PessoaCadastroComponent}
 ]
 
 @NgModule({

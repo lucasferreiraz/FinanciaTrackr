@@ -1,6 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Pessoa } from '../core/model';
 
 export class PessoaFiltro {
   name: string = '';
@@ -36,13 +37,18 @@ export class PessoaService {
   }
 
   mudarStatus(id: number, ativo: boolean): Observable<any> {
-    let headers = new HttpHeaders()
-
-    headers = headers.append('Content-Type', 'application/json')
+    const headers = new HttpHeaders()
+      .append('Content-Type', 'application/json')
 
     return this.http.put(`${this.baseUrl}/${id}/active`, ativo, { headers })
   }
 
+  adicionar(pessoa: Pessoa): Observable<Pessoa> {
+    const headers = new HttpHeaders()
+      .append('Content-Type', 'application/json');
+
+    return this.http.post<Pessoa>(`${this.baseUrl}`, pessoa, { headers })
+  }
 
   excluir(id: any): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`)
