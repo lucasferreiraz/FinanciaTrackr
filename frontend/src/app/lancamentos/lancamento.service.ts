@@ -1,7 +1,8 @@
 import { DatePipe } from '@angular/common';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { Lancamento } from '../core/model';
 
 export class LancamentoFiltro {
   description!: string
@@ -39,6 +40,13 @@ export class LancamentoService {
       params = params.set('maxDueDate', this.datePipe.transform(filtro.maxDueDate, 'yyyy-MM-dd')!);
 
     return this.http.get(`${this.baseUrl}?resume`, { params })
+  }
+
+  adicionar(lancamento: Lancamento): Observable<Lancamento> {
+    const headers = new HttpHeaders()
+      .append('Content-Type', 'application/json');
+
+    return this.http.post<Lancamento>(`${this.baseUrl}`, lancamento, { headers })
   }
 
   excluir(id: any): Observable<any> {
