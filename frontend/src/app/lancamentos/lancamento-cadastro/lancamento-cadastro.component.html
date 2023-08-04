@@ -1,5 +1,5 @@
 <div class="container">
-  <form #cadLancamentoForm="ngForm" (ngSubmit)="salvar(cadLancamentoForm)">
+  <form #cadLancamentoForm="ngForm" (ngSubmit)="salvar()">
     <div class="grid">
 
       <div class="col-12">
@@ -108,7 +108,9 @@
         <button pButton type="submit" label="Salvar"
           [disabled]="cadLancamentoForm.invalid">
         </button>
-        <button pButton type="button" label="Novo" class="p-button-info"></button>
+        <button pButton type="button" label="Novo" class="p-button-info"
+        (click)="novo(cadLancamentoForm)">
+        </button>
         <a routerLink="/lancamentos">Voltar para a pesquisa</a>
       </div>
 
