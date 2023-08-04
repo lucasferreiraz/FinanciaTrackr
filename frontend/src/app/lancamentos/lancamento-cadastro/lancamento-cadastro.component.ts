@@ -35,11 +35,26 @@ export class LancamentoCadastroComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+
+    const idLancamento = this.route.snapshot.params['id'];
+
+    if (idLancamento) {
+      this.carregarLancamento(idLancamento);
+    }
+
     this.carregarCategorias()
     this.carregarPessoas()
   }
 
   salvar(lancamentoForm: NgForm) {
+    if(this.editando) {
+      this.atualizarLancamento()
+    } else {
+      this.adicionarLancamento(lancamentoForm)
+    }
+  }
+
+  adicionarLancamento(lancamentoForm: NgForm) {
     this.lancamentoService.adicionar(this.lancamento)
       .subscribe(() => {
         this.messageService.add({
@@ -52,6 +67,26 @@ export class LancamentoCadastroComponent implements OnInit {
       },
         error => this.errorHandler.handle(error)
       )
+  }
+
+  atualizarLancamento() {
+    this.lancamentoService.atualizar(this.lancamento)
+      .subscribe(() => {
+        this.messageService.add({
+          severity: 'success',
+          detail: 'Lançamento alterado com sucesso!'
+        });
+      },
+        error => this.errorHandler.handle(error)
+      )
+  }
+
+  carregarLancamento(id: number) {
+    this.lancamentoService.buscarPorId(id)
+      .subscribe(lancamento => {
+        this.lancamentoService.converterStringsParaDatas([lancamento])
+        this.lancamento = lancamento
+      })
   }
 
   carregarCategorias() {
@@ -68,6 +103,10 @@ export class LancamentoCadastroComponent implements OnInit {
         this.pessoas = pessoas['content'].map((p: any) => ({ label: p.name, value: p.id }));
       },
         error => this.errorHandler.handle(error))
+  }
+
+  get editando () {
+    return Boolean(this.lancamento.id)
   }
 
 }

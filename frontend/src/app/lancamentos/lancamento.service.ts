@@ -1,7 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { Lancamento } from '../core/model';
 
 export class LancamentoFiltro {
@@ -51,6 +51,29 @@ export class LancamentoService {
 
   excluir(id: any): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`)
+  }
+
+  atualizar(lancamento: Lancamento): Observable<Lancamento> {
+    const headers = new HttpHeaders()
+      .append('Content-Type', 'application/json');
+
+    return this.http.put<Lancamento>(`${this.baseUrl}/${lancamento.id}`,
+       lancamento, { headers })
+  }
+
+  buscarPorId(id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${id}`)
+  }
+
+  converterStringsParaDatas(lancamentos: any[]) {
+    for (const lancamento of lancamentos) {
+
+      lancamento.dueDate = new Date(lancamento.dueDate);
+
+      if (lancamento.paymentDate) {
+        lancamento.paymentDate = new Date(lancamento.paymentDate);
+      }
+    }
   }
 
 }

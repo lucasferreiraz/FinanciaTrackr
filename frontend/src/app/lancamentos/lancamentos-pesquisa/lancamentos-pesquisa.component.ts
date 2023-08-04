@@ -22,7 +22,7 @@ export class LancamentosPesquisaComponent {
 
   pesquisar(pagina = 0) {
     this.filtro.pagina = pagina
-
+    this.lancamentoService.buscarPorId(4)
     this.lancamentoService.pesquisar(this.filtro)
       .subscribe(
         data => {
