@@ -16,12 +16,14 @@
       <div class="col-12">
         <label for="" style="display: block;">Vencimento</label>
         <p-calendar dateFormat="dd/mm/yy" [inputStyle]="{width: '95px'}"
+          [showIcon]="true"
           name="vencimentoInicio"
           [(ngModel)]="filtro.minDueDate">
         </p-calendar>
 
         <label> até </label>
         <p-calendar dateFormat="dd/mm/yy" [inputStyle]="{width: '95px'}"
+          [showIcon]="true"
           name="vencimentoFim"
           [(ngModel)]="filtro.maxDueDate">
         </p-calendar>
