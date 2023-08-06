@@ -36,6 +36,11 @@ export class PessoaService {
     return this.http.get(`${this.baseUrl}`)
   }
 
+
+  buscaPorId (id: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${id}`)
+  }
+
   mudarStatus(id: number, ativo: boolean): Observable<any> {
     const headers = new HttpHeaders()
       .append('Content-Type', 'application/json')
@@ -48,6 +53,14 @@ export class PessoaService {
       .append('Content-Type', 'application/json');
 
     return this.http.post<Pessoa>(`${this.baseUrl}`, pessoa, { headers })
+  }
+
+  atualizar(pessoa: Pessoa): Observable<Pessoa> {
+    const headers = new HttpHeaders()
+      .append('Content-Type', 'application/json');
+
+    return this.http.put<Pessoa>(`${this.baseUrl}/${pessoa.id}`,
+      pessoa, { headers })
   }
 
   excluir(id: any): Observable<any> {
