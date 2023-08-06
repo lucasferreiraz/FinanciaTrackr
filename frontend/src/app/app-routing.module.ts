@@ -4,6 +4,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PaginaNaoEncontradaComponent } from './core/pagina-nao-encontrada/pagina-nao-encontrada.component';
 import { LancamentosRoutingModule } from './lancamentos/lancamentos-routing.module';
 import { PessoasRoutingModule } from './pessoas/pessoas-routing.module';
+import { SegurancaRoutingModule } from './seguranca/seguranca-routing.module';
 
 const routes: Routes = [
   { path: '', redirectTo: 'lancamentos', pathMatch: 'full' },
@@ -16,7 +17,8 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes),
     LancamentosRoutingModule,
-    PessoasRoutingModule
+    PessoasRoutingModule,
+    SegurancaRoutingModule
   ],
   exports: [RouterModule]
 })

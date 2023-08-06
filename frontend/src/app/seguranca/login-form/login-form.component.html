@@ -1,0 +1,56 @@
+
+<div class="container logon" >
+
+  <form autocomplete=off #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+    <div class="grid" >
+
+      <h1 style="padding: 8px;">Login</h1>
+
+      <div class="col-12 md:col-12">
+        <input pInputText name="email" type="email" class="w-12"
+          minlength="3"
+          required ngModel
+          [email]="true"
+          #email="ngModel"
+          pTooltip="Insira um email válido no sistema. Exemplo: usuario123@gmail.com"
+          tooltipPosition="right" placeholder="E-mail"
+          [(ngModel)]="formLogin.email">
+
+        <app-message *ngIf="(loginForm.touched ||(loginForm.touched && email.invalid))"
+          [control]="email"
+          error="email"
+          text="Insira um e-mail válido">
+        </app-message>
+
+        <app-message *ngIf="(loginForm.touched)"
+          [control]="email"
+          error="required"
+          text="Insira um e-mail.">
+        </app-message>
+      </div>
+
+      <div class="col-12 md:col-12">
+        <input pInputText name="senha" type="password" class="w-12"
+          required
+          ngModel
+          #senha="ngModel"
+          [(ngModel)]="formLogin.password"
+          placeholder="Senha">
+
+        <app-message [control]="senha"
+         error="required"
+         text="Insira uma senha">
+        </app-message>
+      </div>
+
+      <div class="col-12">
+        <button pButton type="submit"
+          [disabled]="loginForm.invalid"
+          label="Login"
+          (click)="login(loginForm)">
+        </button>
+      </div>
+
+    </div>
+  </form>
+</div>

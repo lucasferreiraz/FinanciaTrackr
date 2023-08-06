@@ -1,3 +1,8 @@
+export class Login {
+  email?: string;
+  password?: string;
+}
+
 export class Pessoa {
   id?: number;
   name?: string;

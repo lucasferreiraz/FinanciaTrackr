@@ -13,6 +13,7 @@ import { PessoasModule } from './pessoas/pessoas.module';
 
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';
+import { SegurancaModule } from './seguranca/seguranca.module';
 
 registerLocaleData(localePt);
 
@@ -28,6 +29,7 @@ registerLocaleData(localePt);
     CoreModule,
     LancamentosModule,
     PessoasModule,
+    SegurancaModule,
     AppRoutingModule
   ],
   providers: [
