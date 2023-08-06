@@ -7,6 +7,7 @@ import { Lancamento } from 'src/app/core/model';
 import { PessoaService } from 'src/app/pessoas/pessoa.service';
 import { LancamentoService } from '../lancamento.service';
 import { MessageService } from 'primeng/api';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-lancamento-cadastro',
@@ -32,10 +33,12 @@ export class LancamentoCadastroComponent implements OnInit {
     private categoriaService: CategoriaService,
     private pessoaService: PessoaService,
     private messageService: MessageService,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
+    private title: Title
   ) { }
 
   ngOnInit(): void {
+    this.title.setTitle("Novo lançamento")
 
     const idLancamento = this.route.snapshot.params['id'];
 
@@ -75,6 +78,8 @@ export class LancamentoCadastroComponent implements OnInit {
           severity: 'success',
           detail: 'Lançamento alterado com sucesso!'
         });
+
+        this.atualizarTituloEdicao()
       },
         error => this.errorHandler.handle(error)
       )
@@ -85,6 +90,7 @@ export class LancamentoCadastroComponent implements OnInit {
       .subscribe(lancamento => {
         this.lancamentoService.converterStringsParaDatas([lancamento])
         this.lancamento = lancamento
+        this.atualizarTituloEdicao()
       })
   }
 
@@ -112,6 +118,10 @@ export class LancamentoCadastroComponent implements OnInit {
     lancamentoForm.reset(new Lancamento);
 
     this.router.navigate(['lancamentos/novo']);
+  }
+
+  atualizarTituloEdicao() {
+    this.title.setTitle(`Edição de lançamento: ${this.lancamento.description}`)
   }
 
 }
