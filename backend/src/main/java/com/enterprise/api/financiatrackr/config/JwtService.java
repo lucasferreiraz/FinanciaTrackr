@@ -6,8 +6,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
+
+import com.enterprise.api.financiatrackr.entities.User;
+import com.enterprise.api.financiatrackr.repositories.UserRepository;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -17,6 +21,9 @@ import io.jsonwebtoken.security.Keys;
 
 @Service
 public class JwtService {
+
+    @Autowired
+    private UserRepository userRepository;
 
     private static final String SECRET_KEY = "183F7FF6649C9BE88FED815BF12FD183F7FF6649C9BE88FED815BF12FD183F7FF6649C9BE88FED815BF12FD";
 
@@ -34,6 +41,11 @@ public class JwtService {
     }
 
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
+        User user = userRepository.findByEmail(userDetails.getUsername());
+
+        extraClaims.put("name", user.getName());        
+        extraClaims.put("email", user.getEmail());
+
         return Jwts.builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
