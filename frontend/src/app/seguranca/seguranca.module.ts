@@ -10,8 +10,11 @@ import { SharedModule } from '../shared/shared.module';
 import { MessageModule } from 'primeng/message';
 import { TooltipModule } from 'primeng/tooltip';
 import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
+import { HttpClientModule } from '@angular/common/http';
 
-
+export function tokenGetter() : string {
+  return localStorage.getItem('token')!;
+}
 
 @NgModule({
   declarations: [
@@ -28,9 +31,12 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
     SharedModule,
     MessageModule,
     TooltipModule,
+    HttpClientModule,
     JwtModule.forRoot({
       config: {
-        tokenGetter: () => { return ''}
+        tokenGetter,
+        allowedDomains: ['localhost:8080'],
+        disallowedRoutes: ['http://localhost:8080/auth/authenticate']
       }
     })
   ],
