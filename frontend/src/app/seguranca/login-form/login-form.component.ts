@@ -9,7 +9,7 @@ import { AuthService } from '../auth.service';
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css']
 })
-export class LoginFormComponent implements OnInit {
+export class LoginFormComponent {
 
   formLogin = new Login();
 
@@ -25,7 +25,8 @@ export class LoginFormComponent implements OnInit {
     this.authService.login(email, senha)
       .subscribe(data => {
         this.authService.armazenarToken(data['token'])
-        console.log(data)
-      })
+        this.router.navigate(['/lancamentos'])
+      },
+      error => this.authService.errorRequestHandler(error))
   }
 }

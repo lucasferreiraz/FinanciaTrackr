@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Login } from '../core/model';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { ErrorHandlerService } from '../core/error-handler.service';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,8 @@ export class AuthService {
 
   constructor(
     private http: HttpClient,
-    private jwtHelper: JwtHelperService) {
+    private jwtHelper: JwtHelperService,
+    private errorHandler: ErrorHandlerService) {
 
     this.carregarToken()
   }
@@ -41,6 +43,13 @@ export class AuthService {
     if (token) {
       this.armazenarToken(token);
     }
+  }
+
+  errorRequestHandler(error: any) {
+    if (error.status === 403)
+      this.errorHandler.handle('Usuario ou senha inválidos!')
+    else
+      this.errorHandler.handle(error)
   }
 
 }

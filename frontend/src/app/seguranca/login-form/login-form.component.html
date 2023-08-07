@@ -32,11 +32,12 @@
         <input pInputText name="senha" type="password" class="w-12"
           required
           ngModel
-          #senha="ngModel"
+          #senha
+          #senhaControl="ngModel"
           [(ngModel)]="formLogin.password"
           placeholder="Senha">
 
-        <app-message [control]="senha"
+        <app-message [control]="senhaControl"
          error="required"
          text="Insira uma senha">
         </app-message>
@@ -46,7 +47,7 @@
         <button pButton type="submit"
           [disabled]="loginForm.invalid"
           label="Login"
-          (click)="login(email.value, senha.value)">
+          (click)="login(email.value, senha.value); senha.value=''">
         </button>
       </div>
 
