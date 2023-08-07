@@ -3,13 +3,16 @@ package com.enterprise.api.financiatrackr.config;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.enterprise.api.financiatrackr.entities.Role;
 import com.enterprise.api.financiatrackr.entities.User;
 import com.enterprise.api.financiatrackr.repositories.UserRepository;
 
@@ -42,9 +45,11 @@ public class JwtService {
 
     public String generateToken(Map<String, Object> extraClaims, UserDetails userDetails) {
         User user = userRepository.findByEmail(userDetails.getUsername());
+        List<String> roles = getRolesList(user.getRoles());
 
         extraClaims.put("name", user.getName());        
         extraClaims.put("email", user.getEmail());
+        extraClaims.put("roles", roles);
 
         return Jwts.builder()
                 .setClaims(extraClaims)
@@ -81,6 +86,10 @@ public class JwtService {
     private Key getSignInKey() {
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);
+    }
+
+    private List<String> getRolesList(Set<Role> roles) {
+        return roles.stream().map(role -> role.getAuthority()).toList();
     }
 
 }
