@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/core/model';
@@ -9,17 +9,22 @@ import { AuthService } from '../auth.service';
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.css']
 })
-export class LoginFormComponent {
+export class LoginFormComponent implements OnInit {
 
   formLogin = new Login();
 
   constructor(
     private router: Router,
-    private authService: AuthService) { }
+    public authService: AuthService) { }
+
+  ngOnInit(): void {
+    console.log(this.authService.jwtPayload)
+  }
 
   login(email: string, senha: string) {
     this.authService.login(email, senha)
       .subscribe(data => {
+        this.authService.armazenarToken(data['token'])
         console.log(data)
       })
   }

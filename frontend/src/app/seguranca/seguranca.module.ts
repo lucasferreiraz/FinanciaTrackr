@@ -9,6 +9,7 @@ import { ButtonModule } from 'primeng/button';
 import { SharedModule } from '../shared/shared.module';
 import { MessageModule } from 'primeng/message';
 import { TooltipModule } from 'primeng/tooltip';
+import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 
 
 
@@ -26,7 +27,15 @@ import { TooltipModule } from 'primeng/tooltip';
     ButtonModule,
     SharedModule,
     MessageModule,
-    TooltipModule
+    TooltipModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: () => { return ''}
+      }
+    })
+  ],
+  providers: [
+    JwtHelperService
   ]
 })
 export class SegurancaModule { }
