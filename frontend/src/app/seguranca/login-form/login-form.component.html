@@ -1,7 +1,7 @@
 
 <div class="container logon" >
 
-  <form autocomplete=off #loginForm="ngForm" (ngSubmit)="login(loginForm)">
+  <form autocomplete=off #loginForm="ngForm">
     <div class="grid" >
 
       <h1 style="padding: 8px;">Login</h1>
@@ -47,7 +47,7 @@
         <button pButton type="submit"
           [disabled]="loginForm.invalid"
           label="Login"
-          (click)="login(loginForm)">
+          (click)="login(email.value, senha.value)">
         </button>
       </div>
 

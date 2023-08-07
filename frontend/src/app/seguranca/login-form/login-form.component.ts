@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/core/model';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-login-form',
@@ -12,9 +13,14 @@ export class LoginFormComponent {
 
   formLogin = new Login();
 
-  constructor(private router: Router) { }
+  constructor(
+    private router: Router,
+    private authService: AuthService) { }
 
-  login(form: NgForm) {
-    this.router.navigate(['lancamentos/']);
+  login(email: string, senha: string) {
+    this.authService.login(email, senha)
+      .subscribe(data => {
+        console.log(data)
+      })
   }
 }
