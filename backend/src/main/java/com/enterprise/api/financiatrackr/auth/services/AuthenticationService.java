@@ -68,13 +68,13 @@ public class AuthenticationService {
         return new AuthenticationResponse(jwtToken, refreshToken);
     }
 
-    public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws StreamWriteException, DatabindException, IOException {
+    public AuthenticationResponse refreshToken(HttpServletRequest request, HttpServletResponse response) throws StreamWriteException, DatabindException, IOException {
         final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
         final String refreshToken;
         final String userEmail;
 
         if (authHeader == null || !authHeader.startsWith("Bearer "))
-            return;
+            return null;
 
         refreshToken = authHeader.substring(7);
         userEmail = jwtService.extractUsername(refreshToken);
@@ -86,8 +86,10 @@ public class AuthenticationService {
                 String accessToken = jwtService.generateToken(user);
 
                 AuthenticationResponse authResponse = new AuthenticationResponse(accessToken, refreshToken);
-                new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
+                return authResponse;
             }
         }
+
+        return null;
     }
 }
