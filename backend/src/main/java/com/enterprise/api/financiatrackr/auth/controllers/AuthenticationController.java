@@ -1,5 +1,7 @@
 package com.enterprise.api.financiatrackr.auth.controllers;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -12,6 +14,9 @@ import com.enterprise.api.financiatrackr.auth.AuthenticationResponse;
 import com.enterprise.api.financiatrackr.auth.RegisterRequest;
 import com.enterprise.api.financiatrackr.auth.services.AuthenticationService;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+
 @RestController
 @RequestMapping("/auth")
 public class AuthenticationController {
@@ -21,16 +26,20 @@ public class AuthenticationController {
 
     @PostMapping("/register")
     public ResponseEntity<AuthenticationResponse> register(
-        @RequestBody RegisterRequest request
-    ) {
+            @RequestBody RegisterRequest request) {
         return ResponseEntity.ok().body(authenticationService.register(request));
     }
 
     @PostMapping("/authenticate")
     public ResponseEntity<AuthenticationResponse> authenticate(
-        @RequestBody AuthenticationRequest request
-    ) {
+            @RequestBody AuthenticationRequest request) {
         return ResponseEntity.ok().body(authenticationService.authenticate(request));
     }
-    
+
+    @PostMapping("/refresh-token")
+    public void refreshToken(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+        authenticationService.refreshToken(request, response);
+    }
+
 }

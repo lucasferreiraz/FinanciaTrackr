@@ -1,6 +1,9 @@
 package com.enterprise.api.financiatrackr.auth.services;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -12,6 +15,12 @@ import com.enterprise.api.financiatrackr.auth.RegisterRequest;
 import com.enterprise.api.financiatrackr.config.JwtService;
 import com.enterprise.api.financiatrackr.entities.User;
 import com.enterprise.api.financiatrackr.repositories.UserRepository;
+import com.fasterxml.jackson.core.exc.StreamWriteException;
+import com.fasterxml.jackson.databind.DatabindException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 @Service
 public class AuthenticationService {
@@ -38,7 +47,9 @@ public class AuthenticationService {
 
         String jwtToken = jwtService.generateToken(user);
 
-        return new AuthenticationResponse(jwtToken);
+        String refreshToken = jwtService.generateRefreshToken(user);
+
+        return new AuthenticationResponse(jwtToken, refreshToken);
     }
 
     public AuthenticationResponse authenticate(AuthenticationRequest request) {
@@ -52,6 +63,31 @@ public class AuthenticationService {
         User user = userRepository.findByEmail(request.getEmail());
         String jwtToken = jwtService.generateToken(user);
 
-        return new AuthenticationResponse(jwtToken);
+        String refreshToken = jwtService.generateRefreshToken(user);
+
+        return new AuthenticationResponse(jwtToken, refreshToken);
+    }
+
+    public void refreshToken(HttpServletRequest request, HttpServletResponse response) throws StreamWriteException, DatabindException, IOException {
+        final String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
+        final String refreshToken;
+        final String userEmail;
+
+        if (authHeader == null || !authHeader.startsWith("Bearer "))
+            return;
+
+        refreshToken = authHeader.substring(7);
+        userEmail = jwtService.extractUsername(refreshToken);
+
+        if (userEmail != null) {
+            User user = this.userRepository.findByEmail(userEmail);
+
+            if (jwtService.isTokenValid(refreshToken, user)) {
+                String accessToken = jwtService.generateToken(user);
+
+                AuthenticationResponse authResponse = new AuthenticationResponse(accessToken, refreshToken);
+                new ObjectMapper().writeValue(response.getOutputStream(), authResponse);
+            }
+        }
     }
 }

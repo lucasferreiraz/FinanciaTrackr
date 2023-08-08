@@ -1,48 +1,40 @@
 package com.enterprise.api.financiatrackr.auth;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class AuthenticationResponse {
     
-    private String token;
+    @JsonProperty("access_token")
+    private String accessToken;
+    @JsonProperty("refresh_token")
+    private String refreshToken;
 
     public AuthenticationResponse() {
     }
 
-    public AuthenticationResponse(String token) {
-        this.token = token;
+    public AuthenticationResponse(String accessToken) {
+        this.accessToken = accessToken;
     }
 
-    public String getToken() {
-        return token;
+    public AuthenticationResponse(String accessToken, String refreshToken) {
+        this.accessToken = accessToken;
+        this.refreshToken = refreshToken;
     }
 
-    public void setToken(String token) {
-        this.token = token;
+    public String getAccessToken() {
+        return accessToken;
     }
 
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((token == null) ? 0 : token.hashCode());
-        return result;
+    public void setAccessToken(String accessToken) {
+        this.accessToken = accessToken;
     }
 
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        AuthenticationResponse other = (AuthenticationResponse) obj;
-        if (token == null) {
-            if (other.token != null)
-                return false;
-        } else if (!token.equals(other.token))
-            return false;
-        return true;
+    public String getRefreshToken() {
+        return refreshToken;
     }
 
-    
+    public void setRefreshToken(String refreshToken) {
+        this.refreshToken = refreshToken;
+    }
+
 }
