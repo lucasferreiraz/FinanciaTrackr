@@ -35,14 +35,18 @@ export class AuthService {
 
   armazenarToken(token: string) {
     this.jwtPayload = this.jwtHelper.decodeToken(token)
-    localStorage.setItem('token', token)
+    localStorage.setItem('access_token', token)
   }
 
   carregarToken() {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('access_token');
     if (token) {
       this.armazenarToken(token);
     }
+  }
+
+  temPermissao(permissao: string) {
+    return this.jwtPayload && this.jwtPayload.roles.includes(permissao);
   }
 
   errorRequestHandler(error: any) {

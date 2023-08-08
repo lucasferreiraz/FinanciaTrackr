@@ -13,7 +13,7 @@ import { JwtHelperService, JwtModule } from '@auth0/angular-jwt';
 import { HttpClientModule } from '@angular/common/http';
 
 export function tokenGetter() : string {
-  return localStorage.getItem('token')!;
+  return localStorage.getItem('access_token')!;
 }
 
 @NgModule({

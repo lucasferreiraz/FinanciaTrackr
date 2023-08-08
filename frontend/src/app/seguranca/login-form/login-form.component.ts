@@ -17,14 +17,10 @@ export class LoginFormComponent {
     private router: Router,
     public authService: AuthService) { }
 
-  ngOnInit(): void {
-    console.log(this.authService.jwtPayload)
-  }
-
   login(email: string, senha: string) {
     this.authService.login(email, senha)
       .subscribe(data => {
-        this.authService.armazenarToken(data['token'])
+        this.authService.armazenarToken(data['access_token'])
         this.router.navigate(['/lancamentos'])
       },
       error => this.authService.errorRequestHandler(error))

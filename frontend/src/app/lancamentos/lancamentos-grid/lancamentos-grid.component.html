@@ -41,7 +41,8 @@
                 pButton
                 pTooltip="Excluir"
                 tooltipPosition="top"
-                (click)="confirmarExclusao(lancamento)">
+                (click)="confirmarExclusao(lancamento)"
+                [disabled]="naoTemPermissao('ROLE_REMOVE_EXPENDITURE')">
                 <i class="pi pi-trash"></i>
               </button>
             </div>
