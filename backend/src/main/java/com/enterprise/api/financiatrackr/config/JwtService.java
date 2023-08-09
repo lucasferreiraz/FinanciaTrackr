@@ -30,7 +30,7 @@ public class JwtService {
 
     private String secretKey = "183F7FF6649C9BE88FED815BF12FD183F7FF6649C9BE88FED815BF12FD183F7FF6649C9BE88FED815BF12FD";
 
-    private long jwtExpiration = 60000;
+    private long jwtExpiration = 86400000;
 
     private long refreshExpiration = 604800000;
 

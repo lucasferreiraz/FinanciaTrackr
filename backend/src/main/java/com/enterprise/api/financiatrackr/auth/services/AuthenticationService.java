@@ -17,7 +17,6 @@ import com.enterprise.api.financiatrackr.entities.User;
 import com.enterprise.api.financiatrackr.repositories.UserRepository;
 import com.fasterxml.jackson.core.exc.StreamWriteException;
 import com.fasterxml.jackson.databind.DatabindException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
