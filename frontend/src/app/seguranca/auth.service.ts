@@ -1,9 +1,9 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { Login } from '../core/model';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { EMPTY, Observable, catchError, switchMap, throwError } from 'rxjs';
 import { ErrorHandlerService } from '../core/error-handler.service';
+import { Login } from '../core/model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +11,7 @@ import { ErrorHandlerService } from '../core/error-handler.service';
 export class AuthService {
 
   oauthTokenUrl = 'http://localhost:8080/auth/authenticate'
+  refreshTokenUrl = 'http://localhost:8080/auth/refresh-token'
   jwtPayload: any
 
   constructor(
@@ -33,16 +34,39 @@ export class AuthService {
     return this.http.post(this.oauthTokenUrl, body, { headers })
   }
 
-  armazenarToken(token: string) {
-    this.jwtPayload = this.jwtHelper.decodeToken(token)
-    localStorage.setItem('access_token', token)
+  armazenarToken(accessToken: string, refreshToken: string) {
+    this.jwtPayload = this.jwtHelper.decodeToken(accessToken)
+    localStorage.setItem('access_token', accessToken)
+    localStorage.setItem('refresh_token', refreshToken)
   }
 
   carregarToken() {
-    const token = localStorage.getItem('access_token');
-    if (token) {
-      this.armazenarToken(token);
+    const accessToken = localStorage.getItem('access_token');
+    const refreshToken = localStorage.getItem('refresh_token');
+    if (accessToken && refreshToken) {
+      this.armazenarToken(accessToken, refreshToken);
     }
+  }
+
+  isAccessTokenInvalido() {
+    const token = localStorage.getItem('access_token');
+    return !token || this.jwtHelper.isTokenExpired(token);
+  }
+
+  obterNovoAccessToken(): Observable<void> {
+    return this.http.post(this.refreshTokenUrl, {}).pipe(
+      switchMap((response: any) => {
+        const accessToken = response['access_token'];
+        const refreshToken = response['refresh_token'];
+        this.armazenarToken(accessToken, refreshToken);
+        return EMPTY; // Emitir um valor vazio para indicar conclusão
+      }),
+      catchError(error => {
+        console.error('Erro ao renovar token.', error);
+        console.log('Novo access token criado!');
+        return throwError(error);
+      })
+    );
   }
 
   temPermissao(permissao: string) {

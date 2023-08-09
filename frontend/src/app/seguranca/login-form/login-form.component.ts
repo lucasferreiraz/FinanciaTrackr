@@ -1,5 +1,4 @@
-import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { Login } from 'src/app/core/model';
 import { AuthService } from '../auth.service';
@@ -20,7 +19,7 @@ export class LoginFormComponent {
   login(email: string, senha: string) {
     this.authService.login(email, senha)
       .subscribe(data => {
-        this.authService.armazenarToken(data['access_token'])
+        this.authService.armazenarToken(data['access_token'], data['refresh_token'])
         this.router.navigate(['/lancamentos'])
       },
       error => this.authService.errorRequestHandler(error))
