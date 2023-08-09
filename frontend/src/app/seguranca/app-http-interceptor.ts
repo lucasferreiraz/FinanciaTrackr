@@ -10,6 +10,8 @@ import { Observable, throwError } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { AuthService } from './auth.service'; // Importe seu serviço AuthService
 
+export class NotAuthenticatedError {}
+
 @Injectable()
 export class AppHttpInterceptor implements HttpInterceptor {
   constructor(private auth: AuthService) {}
@@ -31,7 +33,8 @@ export class AppHttpInterceptor implements HttpInterceptor {
             catchError(() => {
               // Se a renovação falhar, redirecionar para login ou realizar outra ação
               // Você pode implementar sua lógica aqui, por exemplo, redirecionar para a página de login
-              return throwError('Falha na renovação do token');
+              throw new NotAuthenticatedError();
+              // return throwError('Falha na renovação do token');
             })
           );
         } else {

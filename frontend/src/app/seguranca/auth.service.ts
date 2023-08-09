@@ -59,11 +59,11 @@ export class AuthService {
         const accessToken = response['access_token'];
         const refreshToken = response['refresh_token'];
         this.armazenarToken(accessToken, refreshToken);
+        console.log('Novo access token criado!');
         return EMPTY; // Emitir um valor vazio para indicar conclusão
       }),
       catchError(error => {
         console.error('Erro ao renovar token.', error);
-        console.log('Novo access token criado!');
         return throwError(error);
       })
     );

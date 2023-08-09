@@ -1,6 +1,8 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { MessageService } from 'primeng/api';
+import { NotAuthenticatedError } from '../seguranca/app-http-interceptor';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +10,8 @@ import { MessageService } from 'primeng/api';
 export class ErrorHandlerService {
 
   constructor(
-    private messageService: MessageService
+    private messageService: MessageService,
+    private router: Router
   ) { }
 
   handle(errorResponse: any) {
@@ -34,6 +37,12 @@ export class ErrorHandlerService {
       }
 
       console.error('Ocorreu um erro', errorResponse);
+
+    } else if (errorResponse instanceof NotAuthenticatedError) {
+
+      console.log('Erro ao obter refresh token');
+      msg = 'Sua sessão expirou!';
+      this.router.navigate(['/login']);
 
     } else {
       msg = 'Erro ao processar serviço remoto. Tente novamente.';
