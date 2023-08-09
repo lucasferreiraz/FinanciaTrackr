@@ -19,6 +19,7 @@ import { PessoaCadastroComponent } from './pessoa-cadastro/pessoa-cadastro.compo
 import { PessoasGridComponent } from './pessoas-grid/pessoas-grid.component';
 import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.component';
 import { RouterModule } from '@angular/router';
+import { PessoasRoutingModule } from './pessoas-routing.module';
 
 
 
@@ -32,7 +33,7 @@ import { RouterModule } from '@angular/router';
     CommonModule,
     FormsModule,
     RouterModule,
-    SharedModule,
+
     ButtonModule,
     CalendarModule,
     DropdownModule,
@@ -43,7 +44,10 @@ import { RouterModule } from '@angular/router';
     TableModule,
     TooltipModule,
     MessageModule,
-    TagModule
+    TagModule,
+
+    SharedModule,
+    PessoasRoutingModule
   ],
   exports: [
     PessoaCadastroComponent,

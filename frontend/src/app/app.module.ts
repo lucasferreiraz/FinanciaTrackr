@@ -25,10 +25,7 @@ registerLocaleData(localePt);
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    AppRoutingModule,
     CoreModule,
-    LancamentosModule,
-    PessoasModule,
     SegurancaModule,
     AppRoutingModule
   ],

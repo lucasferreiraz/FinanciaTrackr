@@ -18,6 +18,7 @@ import { LancamentoCadastroComponent } from './lancamento-cadastro/lancamento-ca
 import { LancamentosGridComponent } from './lancamentos-grid/lancamentos-grid.component';
 import { LancamentosPesquisaComponent } from './lancamentos-pesquisa/lancamentos-pesquisa.component';
 import { LancamentosRoutingModule } from './lancamentos-routing.module';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -30,8 +31,8 @@ import { LancamentosRoutingModule } from './lancamentos-routing.module';
   imports: [
     CommonModule,
     FormsModule,
-    LancamentosRoutingModule,
-    SharedModule,
+    RouterModule,
+
     ButtonModule,
     CalendarModule,
     DropdownModule,
@@ -41,7 +42,10 @@ import { LancamentosRoutingModule } from './lancamentos-routing.module';
     SelectButtonModule,
     TableModule,
     TooltipModule,
-    MessageModule
+    MessageModule,
+
+    SharedModule,
+    LancamentosRoutingModule,
   ],
   exports: [
     LancamentoCadastroComponent,
