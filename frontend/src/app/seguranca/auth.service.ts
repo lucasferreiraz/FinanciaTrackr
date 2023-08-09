@@ -82,6 +82,13 @@ export class AuthService {
     return false;
   }
 
+  limparAccessToken () {
+    localStorage.removeItem('access_token')
+    localStorage.removeItem('refresh_token')
+
+    this.jwtPayload = null;
+  }
+
   errorRequestHandler(error: any) {
     if (error.status === 403)
       this.errorHandler.handle('Usuario ou senha inválidos!')
