@@ -73,6 +73,15 @@ export class AuthService {
     return this.jwtPayload && this.jwtPayload.roles.includes(permissao);
   }
 
+  temQualquerPermissao(roles: any) {
+    for (const role of roles) {
+      if (this.temPermissao(role)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   errorRequestHandler(error: any) {
     if (error.status === 403)
       this.errorHandler.handle('Usuario ou senha inválidos!')
