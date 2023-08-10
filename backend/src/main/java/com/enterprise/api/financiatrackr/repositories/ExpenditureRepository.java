@@ -10,6 +10,7 @@ import org.springframework.data.jpa.repository.Query;
 
 import com.enterprise.api.financiatrackr.entities.Expenditure;
 import com.enterprise.api.financiatrackr.repositories.projections.ExpenditureCategoryStatistics;
+import com.enterprise.api.financiatrackr.repositories.projections.ExpenditurePerDayStatistics;
 import com.enterprise.api.financiatrackr.repositories.projections.ExpenditureResume;
 
 public interface ExpenditureRepository extends JpaRepository<Expenditure, Long> {
@@ -24,21 +25,29 @@ public interface ExpenditureRepository extends JpaRepository<Expenditure, Long> 
     public Page<Expenditure> searchAll(LocalDate minDate, LocalDate maxDate, String description, Pageable pageable);
 
     @Query("SELECT NEW com.enterprise.api.financiatrackr.repositories.projections.ExpenditureResume(e.id, e.description, e.dueDate, e.paymentDate, e.value, e.type, c.name, p.name) "
-       + "FROM Expenditure e "
-       + "INNER JOIN e.category c "
-       + "INNER JOIN e.person p "
-       + "WHERE "
-       + "(COALESCE(:minDate) IS NULL OR e.dueDate >= :minDate) AND "
-       + "(COALESCE(:maxDate) IS NULL OR e.dueDate <= :maxDate) AND "
-       + "(COALESCE(:description) IS NULL OR LOWER(e.description) LIKE LOWER(CONCAT('%', :description, '%'))) "
-       + "ORDER BY e.id")
+            + "FROM Expenditure e "
+            + "INNER JOIN e.category c "
+            + "INNER JOIN e.person p "
+            + "WHERE "
+            + "(COALESCE(:minDate) IS NULL OR e.dueDate >= :minDate) AND "
+            + "(COALESCE(:maxDate) IS NULL OR e.dueDate <= :maxDate) AND "
+            + "(COALESCE(:description) IS NULL OR LOWER(e.description) LIKE LOWER(CONCAT('%', :description, '%'))) "
+            + "ORDER BY e.id")
     public Page<ExpenditureResume> resume(LocalDate minDate, LocalDate maxDate, String description, Pageable pageable);
 
     @Query("SELECT NEW com.enterprise.api.financiatrackr.repositories.projections.ExpenditureCategoryStatistics(c, SUM(e.value)) "
-        + "FROM Expenditure e "
-        + "INNER JOIN e.category c "
-        + "WHERE "
-        + "(e.dueDate >= :firstDay) AND (e.dueDate <= :lastDay) "
-        + "GROUP BY c ")
+            + "FROM Expenditure e "
+            + "INNER JOIN e.category c "
+            + "WHERE "
+            + "(e.dueDate >= :firstDay) AND (e.dueDate <= :lastDay) "
+            + "GROUP BY c ")
     public List<ExpenditureCategoryStatistics> byCategory(LocalDate firstDay, LocalDate lastDay);
+
+    @Query("SELECT NEW com.enterprise.api.financiatrackr.repositories.projections.ExpenditurePerDayStatistics(e.type, e.dueDate, SUM(e.value)) "
+            + "FROM Expenditure e "
+            + "WHERE "
+            + "(e.dueDate >= :firstDay) AND (e.dueDate <= :lastDay) "
+            + "GROUP BY e.type, e.dueDate "
+            + "ORDER BY e.dueDate")
+    public List<ExpenditurePerDayStatistics> byDay(LocalDate firstDay, LocalDate lastDay);
 }
