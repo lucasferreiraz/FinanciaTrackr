@@ -1,6 +1,7 @@
 package com.enterprise.api.financiatrackr.repositories;
 
 import java.time.LocalDate;
+import java.util.List;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,6 +9,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 import com.enterprise.api.financiatrackr.entities.Expenditure;
+import com.enterprise.api.financiatrackr.repositories.projections.ExpenditureCategoryStatistics;
 import com.enterprise.api.financiatrackr.repositories.projections.ExpenditureResume;
 
 public interface ExpenditureRepository extends JpaRepository<Expenditure, Long> {
@@ -31,4 +33,12 @@ public interface ExpenditureRepository extends JpaRepository<Expenditure, Long> 
        + "(COALESCE(:description) IS NULL OR LOWER(e.description) LIKE LOWER(CONCAT('%', :description, '%'))) "
        + "ORDER BY e.id")
     public Page<ExpenditureResume> resume(LocalDate minDate, LocalDate maxDate, String description, Pageable pageable);
+
+    @Query("SELECT NEW com.enterprise.api.financiatrackr.repositories.projections.ExpenditureCategoryStatistics(c, SUM(e.value)) "
+        + "FROM Expenditure e "
+        + "INNER JOIN e.category c "
+        + "WHERE "
+        + "(e.dueDate >= :firstDay) AND (e.dueDate <= :lastDay) "
+        + "GROUP BY c ")
+    public List<ExpenditureCategoryStatistics> byCategory(LocalDate firstDay, LocalDate lastDay);
 }

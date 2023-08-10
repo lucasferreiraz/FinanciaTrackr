@@ -1,5 +1,7 @@
 package com.enterprise.api.financiatrackr.controllers;
 
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.enterprise.api.financiatrackr.entities.Expenditure;
 import com.enterprise.api.financiatrackr.event.CreatedResourceEvent;
 import com.enterprise.api.financiatrackr.repositories.ExpenditureRepository;
+import com.enterprise.api.financiatrackr.repositories.projections.ExpenditureCategoryStatistics;
 import com.enterprise.api.financiatrackr.repositories.projections.ExpenditureResume;
 import com.enterprise.api.financiatrackr.services.ExpenditureService;
 
@@ -58,6 +61,13 @@ public class ExpenditureController {
         Pageable pageable
     ) {
         return expenditureService.searchAllResumed(minDueDate, maxDueDate, description, pageable);
+    }
+
+    @GetMapping("/statistics/by-category")
+    public ResponseEntity<?> byCategory() {
+        LocalDate firstDay = LocalDate.of(2023, 1, 1);
+		LocalDate lastDay = LocalDate.of(2023, 12, 31);
+        return ResponseEntity.ok(expenditureRepository.byCategory(firstDay, lastDay));
     }
 
     @GetMapping("/{id}")
