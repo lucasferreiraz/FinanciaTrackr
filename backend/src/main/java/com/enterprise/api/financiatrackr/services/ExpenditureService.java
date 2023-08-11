@@ -13,6 +13,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.enterprise.api.financiatrackr.entities.Expenditure;
@@ -37,6 +38,11 @@ public class ExpenditureService {
 
     @Autowired
     private PersonRepository personRepository;
+
+    @Scheduled(cron = "0 0 6 * * *")
+    public void notifyAbouExpiredExpenditures() {
+
+    }
 
     public byte[] reportByPerson(LocalDate startDate, LocalDate endDate) throws Exception {
 		List<ExpenditurePersonStatistics> data = expenditureRepository.byPerson(startDate, endDate);
