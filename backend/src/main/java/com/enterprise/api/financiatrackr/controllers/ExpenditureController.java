@@ -7,7 +7,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -40,6 +43,18 @@ public class ExpenditureController {
 
     @Autowired
     private ApplicationEventPublisher publisher;
+
+
+	@GetMapping("/reports/by-person")
+	public ResponseEntity<byte[]> reportByPerson(
+			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate starDate,
+			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) throws Exception {
+		byte[] report = expenditureService.reportByPerson(starDate, endDate);
+
+		return ResponseEntity.ok()
+				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_PDF_VALUE)
+				.body(report);
+	}
 
     @GetMapping
     public Page<Expenditure> getAll(

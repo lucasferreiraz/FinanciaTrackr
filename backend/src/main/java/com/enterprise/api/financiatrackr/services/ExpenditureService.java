@@ -1,6 +1,12 @@
 package com.enterprise.api.financiatrackr.services;
 
+import java.io.InputStream;
+import java.sql.Date;
 import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
@@ -13,10 +19,15 @@ import com.enterprise.api.financiatrackr.entities.Expenditure;
 import com.enterprise.api.financiatrackr.entities.Person;
 import com.enterprise.api.financiatrackr.repositories.ExpenditureRepository;
 import com.enterprise.api.financiatrackr.repositories.PersonRepository;
+import com.enterprise.api.financiatrackr.repositories.projections.ExpenditurePersonStatistics;
 import com.enterprise.api.financiatrackr.repositories.projections.ExpenditureResume;
 import com.enterprise.api.financiatrackr.services.exceptions.NonExistentOrInativePersonException;
 
 import jakarta.validation.Valid;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 
 @Service
 public class ExpenditureService {
@@ -26,6 +37,23 @@ public class ExpenditureService {
 
     @Autowired
     private PersonRepository personRepository;
+
+    public byte[] reportByPerson(LocalDate startDate, LocalDate endDate) throws Exception {
+		List<ExpenditurePersonStatistics> data = expenditureRepository.byPerson(startDate, endDate);
+
+		Map<String, Object> parameters = new HashMap<>();
+		parameters.put("DT_INICIO", Date.valueOf(startDate));
+		parameters.put("DT_FIM", Date.valueOf(endDate));
+		parameters.put("REPORT_LOCALE", new Locale("pt", "BR"));
+
+		InputStream inputStream = this.getClass().getResourceAsStream(
+				"/reports/lancamentos-por-pessoa.jasper");
+
+		JasperPrint jasperPrint = JasperFillManager.fillReport(inputStream, parameters,
+			    new JRBeanCollectionDataSource(data));
+
+		return JasperExportManager.exportReportToPdf(jasperPrint);
+	}
 
     public Expenditure save(Expenditure expenditure) {
         Optional<Person> person = personRepository

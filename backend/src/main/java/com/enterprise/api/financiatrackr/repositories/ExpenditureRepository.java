@@ -11,6 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import com.enterprise.api.financiatrackr.entities.Expenditure;
 import com.enterprise.api.financiatrackr.repositories.projections.ExpenditureCategoryStatistics;
 import com.enterprise.api.financiatrackr.repositories.projections.ExpenditurePerDayStatistics;
+import com.enterprise.api.financiatrackr.repositories.projections.ExpenditurePersonStatistics;
 import com.enterprise.api.financiatrackr.repositories.projections.ExpenditureResume;
 
 public interface ExpenditureRepository extends JpaRepository<Expenditure, Long> {
@@ -50,4 +51,13 @@ public interface ExpenditureRepository extends JpaRepository<Expenditure, Long> 
             + "GROUP BY e.type, e.dueDate "
             + "ORDER BY e.dueDate")
     public List<ExpenditurePerDayStatistics> byDay(LocalDate firstDay, LocalDate lastDay);
+
+    @Query("SELECT NEW com.enterprise.api.financiatrackr.repositories.projections.ExpenditurePersonStatistics(e.type, p.name, SUM(e.value)) "
+            + "FROM Expenditure e "
+            + "INNER JOIN e.person p "
+            + "WHERE "
+            + "(e.dueDate >= :firstDay) AND (e.dueDate <= :lastDay) "
+            + "GROUP BY e.type, p.name "
+            + "ORDER BY p.name")
+    public List<ExpenditurePersonStatistics> byPerson(LocalDate firstDay, LocalDate lastDay);
 }
