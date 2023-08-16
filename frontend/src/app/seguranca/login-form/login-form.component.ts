@@ -20,7 +20,7 @@ export class LoginFormComponent {
     this.authService.login(email, senha)
       .subscribe(data => {
         this.authService.armazenarToken(data['access_token'], data['refresh_token'])
-        this.router.navigate(['/lancamentos'])
+        this.router.navigate(['/dashboard'])
       },
       error => this.authService.errorRequestHandler(error))
   }
