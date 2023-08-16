@@ -8,16 +8,27 @@ import org.springframework.stereotype.Service;
 import com.enterprise.api.financiatrackr.entities.Person;
 import com.enterprise.api.financiatrackr.repositories.PersonRepository;
 
+import jakarta.validation.Valid;
+
 @Service
 public class PersonService {
 
     @Autowired
     private PersonRepository personRepository;
+    
+    public Person save(@Valid Person person) {
+        person.getContacts().forEach(c -> c.setPerson(person));
+		return personRepository.save(person);
+    }
 
-    public Person update(Long id, Person person) {
+    public Person update(Long id, @Valid Person person) {
         Person savedPerson = findPersonById(id);
 
-        BeanUtils.copyProperties(person, savedPerson, "id");
+        savedPerson.getContacts().clear();
+		savedPerson.getContacts().addAll(person.getContacts());
+		savedPerson.getContacts().forEach(c -> c.setPerson(savedPerson));
+
+        BeanUtils.copyProperties(person, savedPerson, "id", "contacts");
         return personRepository.save(savedPerson);
     }
 
