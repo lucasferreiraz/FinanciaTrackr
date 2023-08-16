@@ -9,6 +9,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -34,10 +35,14 @@ public class Person {
 
     @NotNull
     private Boolean active;
-
-    @JsonIgnoreProperties("person")
-	@Valid
-    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+    
+    @JsonIgnoreProperties(value = "person")
+    @Valid
+    @OneToMany(
+        mappedBy = "person", 
+        cascade = CascadeType.ALL, 
+        fetch = FetchType.EAGER, 
+        orphanRemoval = true)
     private List<Contact> contacts = new ArrayList<>();
 
     public Person() {
@@ -120,5 +125,4 @@ public class Person {
             return false;
         return true;
     }
-    
 }
