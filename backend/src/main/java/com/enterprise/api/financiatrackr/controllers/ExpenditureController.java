@@ -47,9 +47,9 @@ public class ExpenditureController {
 
 	@GetMapping("/reports/by-person")
 	public ResponseEntity<byte[]> reportByPerson(
-			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate starDate,
+			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
 			@RequestParam @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate) throws Exception {
-		byte[] report = expenditureService.reportByPerson(starDate, endDate);
+		byte[] report = expenditureService.reportByPerson(startDate, endDate);
 
 		return ResponseEntity.ok()
 				.header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_PDF_VALUE)
