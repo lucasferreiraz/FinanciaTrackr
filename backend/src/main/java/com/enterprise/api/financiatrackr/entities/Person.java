@@ -1,14 +1,21 @@
 package com.enterprise.api.financiatrackr.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.ArrayList;
+import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Embedded;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 
 @Entity
@@ -27,6 +34,11 @@ public class Person {
 
     @NotNull
     private Boolean active;
+
+    @JsonIgnoreProperties("person")
+	@Valid
+    @OneToMany(mappedBy = "person", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Contact> contacts = new ArrayList<>();
 
     public Person() {
     }
@@ -70,6 +82,14 @@ public class Person {
         this.active = active;
     }
 
+    public List<Contact> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<Contact> contacts) {
+        this.contacts = contacts;
+    }
+
     @JsonIgnore
     @Transient
     public Boolean isInactive() {
@@ -100,6 +120,5 @@ public class Person {
             return false;
         return true;
     }
-
     
 }
