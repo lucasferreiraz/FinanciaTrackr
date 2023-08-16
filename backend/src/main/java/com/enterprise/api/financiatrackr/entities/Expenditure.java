@@ -4,6 +4,7 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 
 import com.enterprise.api.financiatrackr.entities.enums.ExpenditureType;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -49,6 +50,7 @@ public class Expenditure {
 	@JoinColumn(name = "category_id")
 	private Category category;
 
+    @JsonIgnoreProperties("contacts")
     @NotNull
 	@ManyToOne
 	@JoinColumn(name = "person_id")
