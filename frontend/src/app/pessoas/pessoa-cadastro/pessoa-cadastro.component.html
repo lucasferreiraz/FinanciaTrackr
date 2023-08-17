@@ -123,7 +123,9 @@
                     <th class="col-acoes">Ações</th>
                   </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-contato>
+                <ng-template pTemplate="body"
+                  let-contato
+                  let-rowIndex="rowIndex">
                   <tr>
                     <td>{{ contato.name }}</td>
                     <td>{{ contato.email }}</td>
@@ -132,15 +134,19 @@
                       <div class="flex gap-3">
                         <button
                           pButton
+                          type="button"
                           icon="pi pi-pencil"
                           pTooltip="Editar"
+                          (click)="editarContato(contato, rowIndex)"
                           tooltipPosition="top">
                         </button>
                         <button
                           pButton
+                          type="button"
                           icon="pi pi-trash"
                           class="btn-acao"
                           pTooltip="Excluir"
+                          class="p-button-danger"
                           tooltipPosition="top">
                         </button>
                       </div>
