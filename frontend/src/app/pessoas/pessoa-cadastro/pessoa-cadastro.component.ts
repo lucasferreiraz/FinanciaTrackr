@@ -16,6 +16,10 @@ export class PessoaCadastroComponent implements OnInit {
 
   pessoa = new Pessoa();
 
+  estados: any;
+  cidades: any;
+  estadoSelecionado!: number;
+
   constructor(private pessoaService: PessoaService,
     private messageService: MessageService,
     private errorHandler: ErrorHandlerService,
@@ -28,7 +32,7 @@ export class PessoaCadastroComponent implements OnInit {
     const idPessoa = this.route.snapshot.params['id'];
 
     this.title.setTitle("Nova Pessoa")
-
+    this.listarEstados()
     if (idPessoa) {
       this.carregarPessoa(idPessoa);
     }
@@ -92,5 +96,21 @@ export class PessoaCadastroComponent implements OnInit {
 
   atualizarTituloEdicao() {
     this.title.setTitle(`Edição de pessoa: ${this.pessoa.name}`);
+  }
+
+  listarEstados() {
+    this.pessoaService.listarEstados()
+      .subscribe(response => {
+        this.estados = response.map(estado => ({ label: estado.name, value: estado.id }));
+      },
+        error => this.errorHandler.handle(error))
+  }
+
+  listarCidades() {
+    this.pessoaService.pesquisarCidades(this.estadoSelecionado)
+      .subscribe(response => {
+        this.cidades = response.map(cidade => ({ label: cidade.name, value: cidade.id }));
+      },
+        erro => this.errorHandler.handle(erro))
   }
 }

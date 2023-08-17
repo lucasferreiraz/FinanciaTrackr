@@ -82,25 +82,32 @@
 
       <div class="col-12 md:col-6">
         <label class="block">Cidade</label>
-        <input pInputText type="text" class="w-12"
+        <p-dropdown
+          placeholder="Selecione"
+          [filter]="true"
+          [options]="cidades"
+          [(ngModel)]="pessoa.address.city.id"
           name="cidade"
-          ngModel
           #cidade="ngModel"
-          required
-          [(ngModel)]="pessoa.address.city">
+          [required]="true"
+          [disabled]="!estadoSelecionado">
+        </p-dropdown>
 
         <app-message [control]="cidade" error="required" text="Informe uma cidade"></app-message>
       </div>
 
       <div class="col-12 md:col-6">
         <label class="block">Estado</label>
-        <input pInputText type="text" class="w-12"
-          name="estado"
-          ngModel
+        <p-dropdown
+          placeholder="Selecione"
+          [filter]="true"
+          [options]="estados"
+          [(ngModel)]="estadoSelecionado"
+          name="estadoSelecionado"
+          (onChange)="listarCidades()"
           #estado="ngModel"
-          required
-          [(ngModel)]="pessoa.address.state">
-
+          [required]="true">
+        </p-dropdown>
         <app-message [control]="estado" error="required" text="Informe um estado"></app-message>
       </div>
 

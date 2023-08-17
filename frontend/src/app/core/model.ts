@@ -19,14 +19,25 @@ export class Pessoa {
   contacts = new Array<Contato>;
 }
 
+export class Estado {
+  id?: number;
+  name?: string;
+}
+
+export class Cidade {
+  id?: number;
+  name?: string;
+  state = new Estado();
+}
+
+
 export class Endereco {
   street?: string;
   number?: string;
   complement?: string;
   district?: string;
   zipcode?: string;
-  city?: string;
-  state?: string;
+  city = new Cidade();
 }
 
 export class Categoria {

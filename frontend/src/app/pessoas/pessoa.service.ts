@@ -1,7 +1,7 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { Pessoa } from '../core/model';
+import { Cidade, Estado, Pessoa } from '../core/model';
 
 export class PessoaFiltro {
   name: string = '';
@@ -15,6 +15,9 @@ export class PessoaFiltro {
 export class PessoaService {
 
   baseUrl = 'http://localhost:8080/persons'
+
+  cidadesUrl = 'http://localhost:8080/cities'
+  estadosUrl = 'http://localhost:8080/states'
 
   constructor(
     private http: HttpClient
@@ -65,5 +68,16 @@ export class PessoaService {
 
   excluir(id: any): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`)
+  }
+
+
+  listarEstados(): Observable<Estado[]> {
+    return this.http.get<Estado[]>(this.estadosUrl)
+  }
+
+  pesquisarCidades(estadoId: number): Observable<Cidade[]> {
+    let params = new HttpParams()
+    params = params.set('stateId', estadoId)
+    return this.http.get<Cidade[]>(this.cidadesUrl, { params })
   }
 }
