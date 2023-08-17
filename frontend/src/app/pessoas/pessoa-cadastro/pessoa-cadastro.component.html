@@ -81,6 +81,21 @@
       </div>
 
       <div class="col-12 md:col-6">
+        <label class="block">Estado</label>
+        <p-dropdown
+          placeholder="Selecione"
+          [filter]="true"
+          [options]="estados"
+          [(ngModel)]="estadoSelecionado"
+          name="estadoSelecionado"
+          (onChange)="listarCidades()"
+          #estado="ngModel"
+          [required]="true">
+        </p-dropdown>
+        <app-message [control]="estado" error="required" text="Informe um estado"></app-message>
+      </div>
+
+      <div class="col-12 md:col-6">
         <label class="block">Cidade</label>
         <p-dropdown
           placeholder="Selecione"
@@ -94,21 +109,6 @@
         </p-dropdown>
 
         <app-message [control]="cidade" error="required" text="Informe uma cidade"></app-message>
-      </div>
-
-      <div class="col-12 md:col-6">
-        <label class="block">Estado</label>
-        <p-dropdown
-          placeholder="Selecione"
-          [filter]="true"
-          [options]="estados"
-          [(ngModel)]="estadoSelecionado"
-          name="estadoSelecionado"
-          (onChange)="listarCidades()"
-          #estado="ngModel"
-          [required]="true">
-        </p-dropdown>
-        <app-message [control]="estado" error="required" text="Informe um estado"></app-message>
       </div>
 
       <div class="col-12">

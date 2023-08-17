@@ -18,7 +18,7 @@ export class PessoaCadastroComponent implements OnInit {
 
   estados: any;
   cidades: any;
-  estadoSelecionado!: number;
+  estadoSelecionado: any;
 
   constructor(private pessoaService: PessoaService,
     private messageService: MessageService,
@@ -80,6 +80,13 @@ export class PessoaCadastroComponent implements OnInit {
       .subscribe(pessoa => {
         this.pessoa = pessoa;
         this.atualizarTituloEdicao();
+
+        this.estadoSelecionado = (this.pessoa.address.city) ?
+          this.pessoa.address.city.state.id : null;
+
+        if (this.estadoSelecionado) {
+          this.listarCidades();
+        }
       },
         error => this.errorHandler.handle(error))
   }
