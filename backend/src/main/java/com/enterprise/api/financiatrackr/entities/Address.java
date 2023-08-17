@@ -1,6 +1,8 @@
 package com.enterprise.api.financiatrackr.entities;
 
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Embeddable
 public class Address {
@@ -10,21 +12,21 @@ public class Address {
     private String complement;
     private String district;
     private String zipcode;
-    private String city;
-    private String state;
+
+    @ManyToOne
+    @JoinColumn(name = "city_id")
+    private City city;
 
     public Address() {
     }
 
-    public Address(String street, String number, String complement, String district, String zipcode, String city,
-            String state) {
+    public Address(String street, String number, String complement, String district, String zipcode, City city) {
         this.street = street;
         this.number = number;
         this.complement = complement;
         this.district = district;
         this.zipcode = zipcode;
         this.city = city;
-        this.state = state;
     }
 
     public String getStreet() {
@@ -67,20 +69,12 @@ public class Address {
         this.zipcode = zipcode;
     }
 
-    public String getCity() {
+    public City getCity() {
         return city;
     }
 
-    public void setCity(String city) {
+    public void setCity(City city) {
         this.city = city;
-    }
-
-    public String getState() {
-        return state;
-    }
-
-    public void setState(String state) {
-        this.state = state;
     }
 
 }
