@@ -22,8 +22,8 @@
       <ng-template pTemplate="body" let-pessoa>
         <tr>
           <td>{{ pessoa.name }}</td>
-          <td>{{ pessoa.address.city }}</td>
-          <td>{{ pessoa.address.state }}</td>
+          <td>{{ pessoa.address.city?.name }}</td>
+          <td>{{ pessoa.address.city?.state.name }}</td>
           <td [style.color]="pessoa.active ? 'blue' : 'red'">
             <p-tag href="javascript:;"
               [pTooltip]="pessoa.active ? 'Desativar' : 'Ativar'"
