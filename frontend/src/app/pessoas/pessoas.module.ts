@@ -22,6 +22,7 @@ import { PessoasGridComponent } from './pessoas-grid/pessoas-grid.component';
 import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.component';
 import { RouterModule } from '@angular/router';
 import { PessoasRoutingModule } from './pessoas-routing.module';
+import { PessoasCadastroContatoComponent } from './pessoas-cadastro-contato/pessoas-cadastro-contato.component';
 
 
 
@@ -29,7 +30,8 @@ import { PessoasRoutingModule } from './pessoas-routing.module';
   declarations: [
     PessoaCadastroComponent,
     PessoasPesquisaComponent,
-    PessoasGridComponent
+    PessoasGridComponent,
+    PessoasCadastroContatoComponent
   ],
   imports: [
     CommonModule,

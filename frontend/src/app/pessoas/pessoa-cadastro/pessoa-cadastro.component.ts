@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { Contato, Pessoa } from 'src/app/core/model';
+import { Pessoa } from 'src/app/core/model';
 import { PessoaService } from '../pessoa.service';
 import { MessageService } from 'primeng/api';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
-import { FormControl, NgForm } from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Title } from '@angular/platform-browser';
 
@@ -15,9 +15,6 @@ import { Title } from '@angular/platform-browser';
 export class PessoaCadastroComponent implements OnInit {
 
   pessoa = new Pessoa();
-  contato = new Contato();
-  contatoIndex!: number;
-  exibirFormularioContato: boolean = false;
 
   constructor(private pessoaService: PessoaService,
     private messageService: MessageService,
@@ -35,32 +32,6 @@ export class PessoaCadastroComponent implements OnInit {
     if (idPessoa) {
       this.carregarPessoa(idPessoa);
     }
-  }
-
-  confirmarContato(formContato: NgForm) {
-    this.pessoa.contacts[this.contatoIndex] = this.clonarContato(this.contato);
-    this.exibirFormularioContato = false;
-    formContato.reset();
-  }
-
-  editarContato(contato: Contato, index: number) {
-    this.contato = this.clonarContato(contato);
-    this.exibirFormularioContato = true;
-    this.contatoIndex = index;
-  }
-
-  removerContato(index: number) {
-    this.pessoa.contacts.splice(index, 1)
-  }
-
-  clonarContato(contato: Contato): Contato {
-    return new Contato(contato.id, contato.name, contato.email, contato.phone);
-  }
-
-  abrirModalContato() {
-    this.exibirFormularioContato = true;
-    this.contato = new Contato();
-    this.contatoIndex = this.pessoa.contacts.length
   }
 
   salvar(form: NgForm) {
