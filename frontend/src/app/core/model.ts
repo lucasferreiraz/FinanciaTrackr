@@ -4,10 +4,11 @@ export class Login {
 }
 
 export class Contato {
-  id?: number;
-  name?: string;
-  email?: string;
-  phone?: string;
+  constructor(
+    public id?: number,
+    public name?: string,
+    public email?: string,
+    public phone?: string) { }
 }
 
 export class Pessoa {
