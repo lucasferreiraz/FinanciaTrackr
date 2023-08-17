@@ -7,7 +7,7 @@ export const authGuard: CanActivateFn = (route, state) => {
   const router = inject(Router)
 
   if (authService.isAccessTokenInvalido()) {
-    console.log('Navagação com access token inválido.');
+    console.log('Navegação com access token inválido.');
 
     authService.obterNovoAccessToken()
       .subscribe();

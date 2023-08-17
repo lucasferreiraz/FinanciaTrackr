@@ -104,6 +104,55 @@
         <app-message [control]="estado" error="required" text="Informe um estado"></app-message>
       </div>
 
+      <div class="col-12">
+        <p-panel header="Contatos">
+          <div class="grid">
+            <div class="col-12">
+              <p-table
+                [value]="pessoa.contacts"
+                [responsive]="true"
+                styleClass="p-datatable-gridlines">
+                <ng-template pTemplate="header">
+                  <tr>
+                    <th>Nome</th>
+                    <th>Email</th>
+                    <th>Telefone</th>
+                    <th class="col-acoes">Ações</th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-contato>
+                  <tr>
+                    <td>{{ contato.name }}</td>
+                    <td>{{ contato.email }}</td>
+                    <td>{{ contato.phone }}</td>
+                    <td>
+                      <div class="flex gap-3">
+                        <button
+                          pButton
+                          icon="pi pi-pencil"
+                          pTooltip="Editar"
+                          tooltipPosition="top">
+                        </button>
+                        <button
+                          pButton
+                          icon="pi pi-trash"
+                          class="btn-acao"
+                          pTooltip="Excluir"
+                          tooltipPosition="top">
+                        </button>
+                      </div>
+                    </td>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="emptymessage">
+                  <tr><td colspan="6">Nenhum registro encontrado!</td></tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </p-panel>
+      </div>
+
       <div class="flex justify-content-start align-items-center p-2 gap-3 w-12">
         <button pButton type="submit" label="Salvar"
           [disabled]="cadPessoaForm.invalid">

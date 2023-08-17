@@ -39,7 +39,7 @@ export class DashboardComponent implements OnInit {
     this.dashboardService.lancamentosPorDia()
       .subscribe(dados => {
         this.dashboardService.converterStringsParaDatas(dados)
-        console.log(dados)
+
         const diasDoMes = this.configurarDiasMes();
 
         const totaisReceitas = this.totaisPorCadaDiaMes(dados.filter((dado: any) => dado.expenditureType === 'REVENUE'), diasDoMes);
@@ -67,7 +67,6 @@ export class DashboardComponent implements OnInit {
       }
       totais.push(total);
     }
-    console.log(totais)
     return totais;
   }
 

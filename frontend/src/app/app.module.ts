@@ -8,8 +8,6 @@ import { AppComponent } from './app.component';
 
 import { PrimeNGConfig } from 'primeng/api';
 import { CoreModule } from './core/core.module';
-import { LancamentosModule } from './lancamentos/lancamentos.module';
-import { PessoasModule } from './pessoas/pessoas.module';
 
 import { registerLocaleData } from '@angular/common';
 import localePt from '@angular/common/locales/pt';

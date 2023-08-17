@@ -3,11 +3,19 @@ export class Login {
   password?: string;
 }
 
+export class Contato {
+  id?: number;
+  name?: string;
+  email?: string;
+  phone?: string;
+}
+
 export class Pessoa {
   id?: number;
   name?: string;
   active = true;
   address = new Endereco();
+  contacts = new Array<Contato>;
 }
 
 export class Endereco {
