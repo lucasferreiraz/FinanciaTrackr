@@ -49,6 +49,10 @@ export class PessoaCadastroComponent implements OnInit {
     this.contatoIndex = index;
   }
 
+  removerContato(index: number) {
+    this.pessoa.contacts.splice(index, 1)
+  }
+
   clonarContato(contato: Contato): Contato {
     return new Contato(contato.id, contato.name, contato.email, contato.phone);
   }
