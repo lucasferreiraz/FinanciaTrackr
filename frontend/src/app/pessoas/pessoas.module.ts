@@ -4,11 +4,13 @@ import { FormsModule } from '@angular/forms';
 
 import { ButtonModule } from 'primeng/button';
 import { CalendarModule } from 'primeng/calendar';
+import { DialogModule } from 'primeng/dialog';
 import { DropdownModule } from 'primeng/dropdown';
 import { InputMaskModule } from 'primeng/inputmask';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessageModule } from 'primeng/message';
+import { PanelModule } from 'primeng/panel';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TableModule } from 'primeng/table';
 import { TooltipModule } from 'primeng/tooltip';
@@ -20,7 +22,6 @@ import { PessoasGridComponent } from './pessoas-grid/pessoas-grid.component';
 import { PessoasPesquisaComponent } from './pessoas-pesquisa/pessoas-pesquisa.component';
 import { RouterModule } from '@angular/router';
 import { PessoasRoutingModule } from './pessoas-routing.module';
-import { PanelModule } from 'primeng/panel';
 
 
 
@@ -38,6 +39,7 @@ import { PanelModule } from 'primeng/panel';
     PanelModule,
     ButtonModule,
     CalendarModule,
+    DialogModule,
     DropdownModule,
     InputNumberModule,
     InputTextModule,

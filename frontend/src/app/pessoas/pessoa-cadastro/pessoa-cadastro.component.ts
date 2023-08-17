@@ -15,6 +15,7 @@ import { Title } from '@angular/platform-browser';
 export class PessoaCadastroComponent implements OnInit {
 
   pessoa = new Pessoa();
+  exibirFormularioContato: boolean = false;
 
   constructor(private pessoaService: PessoaService,
     private messageService: MessageService,
@@ -32,6 +33,10 @@ export class PessoaCadastroComponent implements OnInit {
     if (idPessoa) {
       this.carregarPessoa(idPessoa);
     }
+  }
+
+  abrirModalContato() {
+    this.exibirFormularioContato = true;
   }
 
   salvar(form: NgForm) {

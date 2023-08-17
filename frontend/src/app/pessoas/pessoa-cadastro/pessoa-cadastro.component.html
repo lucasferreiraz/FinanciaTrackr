@@ -108,9 +108,12 @@
         <p-panel header="Contatos">
           <div class="grid">
             <div class="col-12">
+              <button pButton label="Novo" (click)="abrirModalContato()" icon="pi pi-plus" class="ui-button-secondary" type="button"></button>
+            </div>
+            <div class="col-12">
               <p-table
                 [value]="pessoa.contacts"
-                [responsive]="true"
+                responsiveLayout="stack"
                 styleClass="p-datatable-gridlines">
                 <ng-template pTemplate="header">
                   <tr>
@@ -166,3 +169,6 @@
   </form>
 </div>
 
+<p-dialog header="Contato" [(visible)]="exibirFormularioContato" [modal]="true">
+
+</p-dialog>
