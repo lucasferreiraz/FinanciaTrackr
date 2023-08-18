@@ -5,23 +5,32 @@
     </div>
     <form #form="ngForm"  (ngSubmit)="gerar()">
       <div class="col-12">
-          <label>Vencimento: </label>
+          <label class="block">Vencimento: </label>
           <p-calendar
             [(ngModel)]="periodoInicio"
+            [showIcon]="true"
             name="periodoInicio"
             dateFormat="dd/mm/yy"
             [required]="true">
           </p-calendar>
-          <label>Até: </label>
+          <label style="margin: 0.5rem;"> até: </label>
           <p-calendar
             [(ngModel)]="periodoFim"
+            [showIcon]="true"
             name="periodoFim"
             dateFormat="dd/mm/yy"
             [required]="true">
           </p-calendar>
       </div>
-      <div class="ui-g-12">
-        <button pButton type="submit" label="Gerar" [disabled]="form.invalid"></button>
+      <div class="col-12">
+        <button
+          pButton
+          type="submit"
+          [label]="relatorioCarregado ? 'Gerando relatório...' : 'Gerar'"
+          [disabled]="form.invalid"
+          [loading]="relatorioCarregado"
+          loadingIcon="pi pi-spin pi-spinner">
+        </button>
       </div>
     </form>
   </div>
