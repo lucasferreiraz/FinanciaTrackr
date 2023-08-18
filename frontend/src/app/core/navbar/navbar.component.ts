@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuItem } from 'primeng/api';
 import { AuthService } from 'src/app/seguranca/auth.service';
 
 @Component({
@@ -10,7 +11,38 @@ import { AuthService } from 'src/app/seguranca/auth.service';
 export class NavbarComponent implements OnInit {
 
   usuarioLogado: string = ''
-  exibindoMenu: boolean = true
+  exibindoMenu: boolean = false
+
+  menuItens: MenuItem[] = [
+    {
+      label: 'Dashboard',
+      icon: 'pi pi-fw pi-chart-pie',
+      routerLink: '/dashboard',
+      visible: this.temPermissao('ROLE_SEARCH_EXPENDITURE'),
+      command: () => { this.toggleMenu() }
+    },
+    {
+      label: 'Lançamentos',
+      icon: 'pi pi-fw pi-money-bill',
+      routerLink: '/lancamentos',
+      visible: this.temPermissao('ROLE_SEARCH_EXPENDITURE'),
+      command: () => { this.toggleMenu() }
+    },
+    {
+      label: 'Pessoas',
+      icon: 'pi pi-fw pi-users',
+      routerLink: '/pessoas',
+      visible: this.temPermissao('ROLE_SEARCH_PERSON'),
+      command: () => { this.toggleMenu() }
+    },
+    {
+      label: 'Relatórios',
+      icon: 'pi pi-fw pi-file-pdf',
+      routerLink: '/relatorios/lancamentos',
+      visible: this.temPermissao('ROLE_SEARCH_EXPENDITURE'),
+      command: () => { this.toggleMenu() }
+    }
+  ];
 
   constructor(
     private auth: AuthService,
@@ -22,6 +54,10 @@ export class NavbarComponent implements OnInit {
 
   temPermissao(permissao: string): boolean {
     return this.auth.temPermissao(permissao);
+  }
+
+  toggleMenu() {
+    this.exibindoMenu = !this.exibindoMenu
   }
 
   logout() {

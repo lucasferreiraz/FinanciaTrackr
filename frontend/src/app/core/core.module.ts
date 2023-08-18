@@ -4,8 +4,12 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { RouterModule } from '@angular/router';
 
 import { ToastModule } from 'primeng/toast';
+import { ButtonModule } from 'primeng/button';
 import { ConfirmationService, MessageService } from 'primeng/api';
+import { MenuModule } from 'primeng/menu';
+import { SidebarModule } from 'primeng/sidebar';
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
+
 import { ErrorHandlerService } from './error-handler.service';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada/pagina-nao-encontrada.component';
 import { NaoAutorizadoComponent } from './nao-autorizado/nao-autorizado.component';
@@ -21,6 +25,10 @@ import { NaoAutorizadoComponent } from './nao-autorizado/nao-autorizado.componen
   imports: [
     CommonModule,
     RouterModule,
+
+    ButtonModule,
+    SidebarModule,
+    MenuModule,
     ToastModule,
     ConfirmDialogModule
   ],
