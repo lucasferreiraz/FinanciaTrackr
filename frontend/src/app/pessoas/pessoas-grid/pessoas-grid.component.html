@@ -24,14 +24,19 @@
           <td>{{ pessoa.name }}</td>
           <td>{{ pessoa.address.city?.name }}</td>
           <td>{{ pessoa.address.city?.state.name }}</td>
-          <td [style.color]="pessoa.active ? 'blue' : 'red'">
-            <p-tag href="javascript:;"
+          <td class="center-cell">
+            <p-toggleButton
+              (ngModelChange)="mudarStatus(pessoa)"
+              [(ngModel)]="pessoa.active"
               [pTooltip]="pessoa.active ? 'Desativar' : 'Ativar'"
               tooltipPosition="top"
-              (click)="mudarStatus(pessoa)"
-              [severity]="pessoa.active ? 'success' : 'danger'">
-              {{ pessoa.active ? 'Ativo' : 'Inativo' }}
-            </p-tag>
+              onLabel="Ativo"
+              offLabel="Inativo"
+              [styleClass]="pessoa.active
+                ? 'p-button-success p-button-text'
+                : 'p-button-danger p-button-text'"
+              [disabled]="naoTemPermissao('ROLE_REMOVE_PERSON')">
+            </p-toggleButton>
           </td>
           <td>
             <div class="flex gap-3">

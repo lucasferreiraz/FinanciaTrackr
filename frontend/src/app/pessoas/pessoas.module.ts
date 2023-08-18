@@ -13,6 +13,7 @@ import { MessageModule } from 'primeng/message';
 import { PanelModule } from 'primeng/panel';
 import { SelectButtonModule } from 'primeng/selectbutton';
 import { TableModule } from 'primeng/table';
+import { ToggleButtonModule } from 'primeng/togglebutton';
 import { TooltipModule } from 'primeng/tooltip';
 import { TagModule } from 'primeng/tag';
 
@@ -48,6 +49,7 @@ import { PessoasCadastroContatoComponent } from './pessoas-cadastro-contato/pess
     InputMaskModule,
     SelectButtonModule,
     TableModule,
+    ToggleButtonModule,
     TooltipModule,
     MessageModule,
     TagModule,

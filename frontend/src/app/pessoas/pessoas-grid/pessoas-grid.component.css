@@ -1,0 +1,17 @@
+.center-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+:host ::ng-deep .p-togglebutton.p-button:not(.p-disabled):not(.p-highlight):hover {
+  background: transparent;
+  color: #ef4e5e;
+  border-color: #ef4e5e;
+}
+
+:host ::ng-deep .p-togglebutton.p-button.p-highlight:hover {
+  background: transparent;
+  color: #22c55e;
+  border-color: #22c55e;
+}
