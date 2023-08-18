@@ -3,6 +3,7 @@ import { TableLazyLoadEvent } from 'primeng/table';
 import { PessoaService } from '../pessoa.service';
 import { ConfirmationService, MessageService } from 'primeng/api';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
+import { AuthService } from 'src/app/seguranca/auth.service';
 
 @Component({
   selector: 'app-pessoas-grid',
@@ -24,7 +25,8 @@ export class PessoasGridComponent {
     private pessoaService: PessoaService,
     private messageService: MessageService,
     private confirmationService: ConfirmationService,
-    private errorHandler: ErrorHandlerService
+    private errorHandler: ErrorHandlerService,
+    private auth: AuthService
   ) { }
 
   aoMudarPagina(event: TableLazyLoadEvent) {
@@ -78,5 +80,9 @@ export class PessoasGridComponent {
         this.errorHandler.handle(error)
       }
       )
+  }
+
+  naoTemPermissao (permissao: string) {
+    return !this.auth.temPermissao(permissao);
   }
 }
