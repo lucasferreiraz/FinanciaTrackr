@@ -44,7 +44,7 @@ public class PersonController {
         @RequestParam(value = "name", defaultValue = "", required = false) String name,
         Pageable pageable
     ) {
-        return personRepository.findByNameContaining(name, pageable);
+        return personRepository.findByNameContainingOrderById(name, pageable);
     }
 
     @PostMapping

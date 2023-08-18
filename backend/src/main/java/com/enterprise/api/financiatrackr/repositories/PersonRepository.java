@@ -8,6 +8,6 @@ import com.enterprise.api.financiatrackr.entities.Person;
 
 public interface PersonRepository extends JpaRepository<Person, Long> {
     
-    Page<Person> findByNameContaining(String name, Pageable pageable);
+    Page<Person> findByNameContainingOrderById(String name, Pageable pageable);
 
 }
