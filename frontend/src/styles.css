@@ -34,6 +34,34 @@ label {
   }
 }
 
+@media(min-width: 1025px) and (max-width: 1199px) {
+  .container {
+    width: 995px;
+    margin: 0 auto;
+  }
+}
+
+@media(min-width: 769px) and (max-width: 1024px) {
+  .container {
+    width: 739px;
+    margin: 0 auto;
+  }
+}
+
+@media(min-width: 481px) and (max-width: 768px) {
+  .container {
+    width: 430px;
+    margin: 0 auto;
+  }
+}
+
+@media(min-width: 320px) and (max-width: 480px) {
+  .container {
+    width: 320px;
+    margin: 0 auto;
+  }
+}
+
 .col-acoes {
   width: 150px;
   text-align: center;
