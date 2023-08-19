@@ -18,8 +18,8 @@ CREATE TABLE tb_user_role (
 	FOREIGN KEY (role_id) REFERENCES tb_role(id)
 );
 
-INSERT INTO tb_user (name, email, password) values ('Administrador', 'admin@algamoney.com', '$2a$10$X607ZPhQ4EgGNaYKt3n4SONjIv9zc.VMWdEuhCuba7oLAL5IvcL5.');
-INSERT INTO tb_user (name, email, password) values ('Maria Silva', 'maria@algamoney.com', '$2a$10$Zc3w6HyuPOPXamaMhh.PQOXvDnEsadztbfi6/RyZWJDzimE8WQjaq');
+INSERT INTO tb_user (name, email, password) values ('Administrador', 'admin@email.com', '$2a$10$X607ZPhQ4EgGNaYKt3n4SONjIv9zc.VMWdEuhCuba7oLAL5IvcL5.');
+INSERT INTO tb_user (name, email, password) values ('Lucas Ferreira', 'lucas@email.com', '$2a$10$SJlMM.SPwymAZ9lzcLxio.eY2fVHC8HoiTbxS/jvRP9yNrYu8C7Cm');
 
 INSERT INTO tb_role (authority) values ('ROLE_CREATE_CATEGORY');
 INSERT INTO tb_role (authority) values ('ROLE_SEARCH_CATEGORY');
