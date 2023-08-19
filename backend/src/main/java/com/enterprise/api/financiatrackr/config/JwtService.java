@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.function.Function;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -28,11 +29,14 @@ public class JwtService {
     @Autowired
     private UserRepository userRepository;
 
-    private String secretKey = "183F7FF6649C9BE88FED815BF12FD183F7FF6649C9BE88FED815BF12FD183F7FF6649C9BE88FED815BF12FD";
+    @Value("${jwt.secret-key}")
+    private String secretKey;
 
-    private long jwtExpiration = 86400000;
+    @Value("${jwt.expiration}")
+    private long jwtExpiration;
 
-    private long refreshExpiration = 604800000;
+    @Value("${jwt.refresh-token.expiration}")
+    private long refreshExpiration;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
