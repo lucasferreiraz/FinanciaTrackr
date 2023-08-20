@@ -1,0 +1,53 @@
+version: "3.7"
+services:
+  # ====================================================================================================================
+  # POSTGRES SERVER
+  # ====================================================================================================================
+  pg-docker:
+    image: postgres:14-alpine
+    container_name: dev-postgresql
+    environment:
+      POSTGRES_DB: financiatrackr
+      POSTGRES_PASSWORD: 1234567
+    ports:
+      - 5434:5432
+    volumes:
+      - ./.data/postgresql/data:/var/lib/postgresql/data
+    networks:
+      - dev-network
+  # ====================================================================================================================
+  # Spring Boot Application
+  # ====================================================================================================================
+  financiatrackr-api:
+    # build: ./backend
+    container_name: dev-financiatrackr-api
+    image: lucasferreiraz/financiatrackr-api:1.0
+    ports:
+      - 8080:8080
+    environment:
+      db-url: jdbc:postgresql://pg-docker:5432/financiatrackr
+      db-username: postgres
+      db-password: 1234567
+    depends_on:
+      - pg-docker
+    networks:
+      - dev-network
+  # ====================================================================================================================
+  # Angular Application
+  # ====================================================================================================================
+  financiatrackr-front:
+    # build: ./frontend
+    container_name: dev-financiatrackr-front
+    image: lucasferreiraz/financiatrackr-front:1.0
+    ports:
+      - 4200:80
+    depends_on:
+      - financiatrackr-api
+    networks:
+      - dev-network
+# ======================================================================================================================
+# REDE
+# ======================================================================================================================
+networks:
+  dev-network:
+    driver: bridge
