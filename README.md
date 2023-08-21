@@ -29,14 +29,14 @@ Na API, a transação de dados ocorre em três camadas:
 
 ![image](media/model.png)
 
-## 📝 Tecnologias e Linguagens Utilizadas
+## 📝 Tecnologias, Linguagens e Ferramentas Utilizadas
 
 |     Backend     |  Frontend  | Banco de dados |     Outros     |
 |:---------------:|:----------:|:--------------:|:--------------:|
 |       Java      |   Angular  |  Postgres SQL  |     Docker     |
 |   Spring Boot   | Primefaces |   H2 Database  | Jasper Reports |
 |      Maven      | Typescript |                |     Postman    |
-|  JPA/Hibernate  |   NodeJS   |                |                |
+|  JPA/Hibernate  |   NodeJS   |                |    Beekeeper   |
 | Spring Security |     npm    |                |                |
 |       JWT       |            |                |                |
 |      Flyway     |            |                |                |
