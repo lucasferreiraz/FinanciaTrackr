@@ -7,4 +7,4 @@ CREATE TABLE tb_contact (
     FOREIGN KEY (person_id) REFERENCES tb_person(id)
 );
 
-INSERT INTO tb_contact (person_id, name, email, phone) VALUES (1, 'Marcos Henrique', 'marcos@algamoney.com', '00 0000-0000');
+INSERT INTO tb_contact (person_id, name, email, phone) VALUES (1, 'Marcos Henrique', 'marcos@email.com', '00 0000-0000');
